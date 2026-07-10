@@ -1,24 +1,23 @@
 # ECService-CustomerAPI
 
+# ECサイト開発 顧客側（Customer）API仕様概要定義書
 
-# ECサイト開発 顧客（Customer）API仕様概要定義書
----
 ## 1. 顧客側（Customer）API一覧
-※設計書の要件に基づき、購入確定前のカート操作（追加・変更・削除・取得）はフロントエンドのセッション領域（状態管理やローカルストレージなど）で完結させるため、バックエンドAPIとしては**不要（非対象）**とする。
+※設計書の要件に基づき、購入確定前のカート操作（追加・変更・削除・取得）はフロントエンドのセッション領域（状態管理やローカルストレージなど）で完結させるため、バックエンドAPIとしては非対象とする。
 
-| No | API名 | メソッド | 想定エンドポイント | 対応する画面 / ユースケース | 設計上のポイント・データ連携 |
-| :--- | :--- | :---: | :--- | :--- | :--- |
-| 1 | 顧客アカウント登録API | `POST` | `/api/customer/accounts` | 新規会員登録画面 (`FP003`) | 顧客情報（氏名、住所、連絡先、認証情報）の新規DB登録。 |
-| 2 | 顧客ログインAPI | `POST` | `/api/customer/login` | ログイン画面 (`FP002`) | 認証成功時、JWTトークンと共に「画面表示用の顧客名」をレスポンスで返却。 |
-| 3 | 顧客ログアウトAPI | `POST` | `/api/customer/logout` | 共通ヘッダー等 | サーバー側でのログ記録やトークン無効化を行う（※フロント側でのトークン破棄のみで完結させる設計も可）。 |
-| 4 | ログインユーザー情報取得API | `GET` | `/api/customer/profile` | 購入確認画面 (`FP009`) | **【重要・不足追加分】** ログイン顧客の登録住所を配送先初期値として画面出力するために使用。 |
-| 5 | 商品カテゴリ一覧取得API | `GET` | `/api/customer/categories` | トップ画面・検索サイドバー | カテゴリ選択による絞り込み表示のためのマスタ取得。 |
-| 6 | 商品検索API（Byカテゴリ） | `GET` | `/api/customer/products` | トップ (`FP001`) / 検索結果 (`FP006`) | カテゴリUUIDをクエリパラメータ（任意）で受け取り、商品一覧を返却。パラメータ無しの場合は全件取得。 |
-| 7 | 商品詳細取得API | `GET` | `/api/customer/products/{productUuid}` | 商品詳細画面 (`FP007`) | 特定商品の詳細情報（在庫ステータス、価格、説明等）の取得。 |
-| 8 | 支払い方法一覧取得API | `GET` | `/api/customer/payments` | 購入確認画面 (`FP009`) | DBの `payment_method` テーブルから選択可能な決済手段一覧を取得。 |
-| 9 | 商品購入API | `POST` | `/api/customer/orders` | 購入確認画面 (`FP009`) | カート内商品リストを送信し、注文登録（`orders` / `orders_detail`）と**在庫の悲観的ロック・減算処理**を実行。 |
-| 10 | 購入履歴取得API | `GET` | `/api/customer/orders` | 購入履歴一覧画面 (`FP011`) | ログイン中の顧客の過去の注文一覧（注文日、合計金額等）を一覧取得。 |
-| 11 | 注文詳細取得API | `GET` | `/api/customer/orders/{orderUuid}` | 購入履歴詳細画面 (`FP012`) | **【重要・不足追加分】** 特定の注文における購入商品名、単価、数量などの明細データを取得。 |
+| No | API名 | メソッド | エンドポイント | 対応する画面 / ユースケース |
+| :--- | :--- | :---: | :--- | :--- |
+| 1 | 顧客アカウント登録API | `POST` | `/api/customer/accounts` | 新規会員登録画面 (`FP003`) |
+| 2 | 顧客ログインAPI | `POST` | `/api/customer/login` | ログイン画面 (`FP002`) |
+| 3 | 顧客ログアウトAPI | `POST` | `/api/customer/logout` | 共通ヘッダー等 |
+| 4 | ログインユーザー情報取得API | `GET` | `/api/customer/profile` | 購入確認画面 (`FP009`) |
+| 5 | 商品カテゴリ一覧取得API | `GET` | `/api/customer/categories` | トップ画面・検索サイドバー |
+| 6 | 商品検索API（Byカテゴリ） | `GET` | `/api/customer/products` | トップ (`FP001`) / 検索結果 (`FP006`) |
+| 7 | 商品詳細取得API | `GET` | `/api/customer/products/{productUuid}` | 商品詳細画面 (`FP007`) |
+| 8 | 支払い方法一覧取得API | `GET` | `/api/customer/payments` | 購入確認画面 (`FP009`) |
+| 9 | 商品購入API | `POST` | `/api/customer/orders` | 購入確認画面 (`FP009`) |
+| 10 | 購入履歴取得API | `GET` | `/api/customer/orders` | 購入履歴一覧画面 (`FP011`) |
+| 11 | 注文詳細取得API | `GET` | `/api/customer/orders/{orderUuid}` | 購入履歴詳細画面 (`FP012`) |
 
 ---
 
