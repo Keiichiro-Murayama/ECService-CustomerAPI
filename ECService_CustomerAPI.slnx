@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Apps/">
+    <Project Path="Apps/ECService_CustomerAPI.Application/ECService_CustomerAPI.Application.csproj" />
+    <Project Path="Apps/ECService_CustomerAPI.Infrastructure/ECService_CustomerAPI.Infrastructure.csproj" />
+    <Project Path="Apps/ECService_CustomerAPI.Presentation/ECService_CustomerAPI.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/ECService_CustomerAPI.Application.Tests/ECService_CustomerAPI.Application.Tests.csproj" />
+    <Project Path="Tests/ECService_CustomerAPI.Infrastructure.Tests/ECService_CustomerAPI.Infrastructure.Tests.csproj" />
+    <Project Path="Tests/ECService_CustomerAPI.Presentation.Tests/ECService_CustomerAPI.Presentation.Tests.csproj" />
+  </Folder>
+</Solution>
