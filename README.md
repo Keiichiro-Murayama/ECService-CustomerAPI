@@ -78,12 +78,12 @@ Authorization: Bearer {JWTトークン}
 ```json
 {
   "name": "山田太郎",
-  "kana": "ヤマダタロウ",
+  "nameKana": "ヤマダタロウ",
   "address1": "東京都渋谷区1-11-11",
   "address2": "マンション渋谷101号室",
   "phoneNumber": "03-1111-2222",
   "mailAddress": "taro@example.com",
-  "username": "taro123",
+  "accountName": "taro123",
   "password": "password123"
 }
 ```
@@ -103,7 +103,7 @@ Authorization: Bearer {JWTトークン}
 
 ```json
 {
-  "message": "name、kana、address1、phoneNumber、mailAddress、username、passwordを入力してください。"
+  "message": "未入力項目が存在しています。"
 }
 ```
 
