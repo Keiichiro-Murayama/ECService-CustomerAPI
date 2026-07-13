@@ -433,6 +433,7 @@ Authorization: Bearer {JWTトークン}
 ```json
 [
   {
+    "orderId" : "2"
     "orderUuid": "550e8400-e29b-41d4-a716-44665544002a",
     "orderDate": "2025-05-12T23:58:16Z",
     "amountTotal": 3800,
