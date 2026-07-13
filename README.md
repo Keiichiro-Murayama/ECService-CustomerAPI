@@ -456,19 +456,12 @@ Authorization: Bearer {JWTトークン}
 
 ```json
 {
-  "orderUuid": "550e8400-e29b-41d4-a716-44665544002a",
-  "orderDate": "2025-05-12T23:58:16Z",
-  "amountTotal": 3800,
-  "orderStatus": "注文済み",
-  "paymentMethodName": "現金",
-  "shippingAddress": "東京都渋谷区1-11-11 マンション渋谷101号室",
   "items": [
     {
       "productUuid": "550e8400-e29b-41d4-a716-446655440000",
       "productName": "有線ゲーミングマウス",
       "price": 3800,
       "quantity": 1,
-      "subtotal": 3800
     }
   ]
 }
