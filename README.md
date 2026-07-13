@@ -350,7 +350,7 @@ Authorization: Bearer {JWTトークン}
 ```json
 [
   {
-    "paymentMethodUuid": "550e8400-e29b-41d4-a716-44665544001a",
+    "paymentMethodId": "1",
     "paymentMethodName": "現金"
   }
 ]
@@ -371,7 +371,7 @@ Authorization: Bearer {JWTトークン}
 
 ```json
 {
-  "paymentMethodUuid": "550e8400-e29b-41d4-a716-44665544001a",
+    "paymentMethodId": "1",
   "items": [
     {
       "productUuid": "550e8400-e29b-41d4-a716-446655440000",
