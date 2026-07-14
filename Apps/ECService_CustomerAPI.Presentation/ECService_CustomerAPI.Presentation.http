@@ -1,6 +1,6 @@
-@ECService_CustomerAPI.Presentation_HostAddress = http://localhost:5221
+@ECService_CustomerAPI..Presentation_HostAddress = http://localhost:5221
 
-GET {{ECService_CustomerAPI.Presentation_HostAddress}}/weatherforecast/
+GET {{ECService_CustomerAPI..Presentation_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
