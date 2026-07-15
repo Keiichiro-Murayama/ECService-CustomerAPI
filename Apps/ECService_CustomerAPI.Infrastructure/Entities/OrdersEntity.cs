@@ -14,7 +14,7 @@ namespace ECService_CustomerAPI.Infrastructure.Entities
         [Key]
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         /// <summary>
         /// 注文識別ID
@@ -29,7 +29,7 @@ namespace ECService_CustomerAPI.Infrastructure.Entities
         [Required]
         [Column("order_date")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime OrderDate { get; set; }
+        public DateTimeOffset? OrderDate { get; set; }
 
         /// <summary>
         /// 合計金額

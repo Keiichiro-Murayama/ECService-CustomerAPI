@@ -16,9 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Apps\ECService_CustomerAPI..Application\ECService_CustomerAPI..Application.csproj" />
-    <ProjectReference Include="..\..\Apps\ECService_CustomerAPI..Infrastructure\ECService_CustomerAPI..Infrastructure.csproj" />
-    <ProjectReference Include="..\..\Apps\ECService_CustomerAPI..Presentation\ECService_CustomerAPI..Presentation.csproj" />
+    <ProjectReference Include="..\..\Apps\ECService_CustomerAPI.Application\ECService_CustomerAPI.Application.csproj" />
+    <ProjectReference Include="..\..\Apps\ECService_CustomerAPI.Infrastructure\ECService_CustomerAPI.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Apps\ECService_CustomerAPI.Presentation\ECService_CustomerAPI.Presentation.csproj" />
   </ItemGroup>
 
 </Project>

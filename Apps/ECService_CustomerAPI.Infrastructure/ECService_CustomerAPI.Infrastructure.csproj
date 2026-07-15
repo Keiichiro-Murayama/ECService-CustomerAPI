@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\ECService_CustomerAPI..Application\ECService_CustomerAPI..Application.csproj" />
+    <ProjectReference Include="..\ECService_CustomerAPI.Application\ECService_CustomerAPI.Application.csproj" />
+    <ProjectReference Include="..\ECService_CustomerAPI.Domain\ECService_CustomerAPI.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
