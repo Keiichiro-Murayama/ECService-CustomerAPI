@@ -5,7 +5,7 @@ using ECService_CustomerAPI.Infrastructure.Extensions;
 using System.Reflection;
 // using Microsoft.AspNetCore.Authentication.JwtBearer;
 // using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Mvc;//石原:追加
+using Microsoft.AspNetCore.Mvc;
 using System.Text;
 
 
