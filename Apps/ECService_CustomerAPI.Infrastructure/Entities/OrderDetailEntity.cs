@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ECService_CustomerAPI.Infrastructure.Entities
 {
     [Table("orders_detail")]
-    public class OrdersDetailEntity
+    public class OrderDetailEntity
     {
         /// <summary>
         /// DB上のID（自動採番）
@@ -13,13 +13,13 @@ namespace ECService_CustomerAPI.Infrastructure.Entities
         [Key]
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         /// <summary>
         /// 注文ID（FK）
         /// </summary>
         [Column("order_id")]
-        public int OrderId { get; set; }
+        public int? OrderId { get; set; }
 
         /// <summary>
         /// 商品ID（FK）

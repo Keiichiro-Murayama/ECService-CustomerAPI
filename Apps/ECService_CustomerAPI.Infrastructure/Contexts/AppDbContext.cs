@@ -18,8 +18,9 @@ namespace ECService_CustomerAPI.Infrastructure.Contexts
         public DbSet<CustomerEntity> CustomerEntities => Set<CustomerEntity>();
         public DbSet<OrderStatusEntity> OrderStatuses => Set<OrderStatusEntity>();
         public DbSet<OrdersEntity> Orders => Set<OrdersEntity>();
-        public DbSet<OrdersDetailEntity> OrdersDetails => Set<OrdersDetailEntity>();
+        public DbSet<OrderDetailEntity> OrderDetails => Set<OrderDetailEntity>();
         public DbSet<PaymentMethodEntity> PaymentMethods => Set<PaymentMethodEntity>();
+        public DbSet<CustomerEntity> Customers => Set<CustomerEntity>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -113,7 +114,7 @@ namespace ECService_CustomerAPI.Infrastructure.Contexts
             });
 
             //注文明細
-            modelBuilder.Entity<OrdersDetailEntity>(entity =>
+            modelBuilder.Entity<OrderDetailEntity>(entity =>
             {
                 entity.HasOne(e => e.Product)
                       .WithMany()

@@ -24,7 +24,7 @@ namespace ECService_CustomerAPI.Infrastructure.Entities
         /// </summary>
         [Required]
         [Column("customer_uuid")]
-        public Guid CustomerUuid { get; set; } = Guid.NewGuid();
+        public Guid CustomerUuid { get; set; }
 
         /// <summary>
         /// 顧客名
@@ -75,7 +75,7 @@ namespace ECService_CustomerAPI.Infrastructure.Entities
         public string Username { get; set; } = string.Empty;
 
         /// <summary>
-        /// パスワード
+        /// ハッシュ化パスワード
         /// </summary>
         [Required]
         [Column("password")]

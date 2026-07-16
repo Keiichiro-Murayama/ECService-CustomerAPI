@@ -27,12 +27,12 @@ public class PaymentMethod
     }
 
     /// <summary>
-    /// オブジェクト生成
+    /// オブジェクト復元
     /// </summary>
     /// <param name="id"></param>
     /// <param name="name"></param>
     /// <returns></returns>
-    public static PaymentMethod Create(int id, string name)
+    public static PaymentMethod Restore(int id, string name)
     {
         return new PaymentMethod(id, name);
     }

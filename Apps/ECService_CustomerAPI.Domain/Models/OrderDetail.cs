@@ -30,6 +30,12 @@ public class OrderDetail
         return new OrderDetail(productUuid, count);
     }
 
+    public static OrderDetail Restore(string productUuid, int count)
+    {
+        ValidateUuid(productUuid);
+        return new OrderDetail(productUuid, count);
+    }
+
     /// <summary>
     /// UUIDを検証する
     /// </summary>

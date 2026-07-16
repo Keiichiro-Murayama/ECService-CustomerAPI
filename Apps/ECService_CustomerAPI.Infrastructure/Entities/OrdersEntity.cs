@@ -59,6 +59,6 @@ namespace ECService_CustomerAPI.Infrastructure.Entities
         public CustomerEntity Customer { get; set; } = null!;
         public OrderStatusEntity OrderStatus { get; set; } = null!;
         public PaymentMethodEntity PaymentMethod { get; set; } = null!;
-        public ICollection<OrdersDetailEntity> OrdersDetails { get; set; } = new List<OrdersDetailEntity>();
+        public ICollection<OrderDetailEntity> OrdersDetails { get; set; } = new List<OrderDetailEntity>();
     }
 }

@@ -9,13 +9,13 @@ namespace ECService_CustomerAPI.Domain.Models;
 public class Customer
 {
     //プロパティ
-    public string? CustomerUuid { get; private set; }
+    public string CustomerUuid { get; private set; }
     public string Name { get; private set; } = string.Empty;
     public string Address1 { get; private set; } = string.Empty;
     public string Address2 { get; private set; } = string.Empty;
     public string PhoneNumber { get; private set; } = string.Empty;
     public string MailAddress { get; private set; } = string.Empty;
-    public string UserName { get; private set; } = string.Empty;
+    public string Username { get; private set; } = string.Empty;
     public string? Password { get; private set; }  //平文パスワード、DBには保存しない
     public string PasswordHash { get; private set; } = string.Empty; //ハッシュ化されたパスワード、DBに保存する
 
@@ -26,7 +26,7 @@ public class Customer
     private const int AddressMaxLength = 100;
     private const int PhoneNumberMaxLength = 20;
     private const int MailAddressMaxLength = 200;
-    private const int UserNameMaxLength = 30;
+    private const int UsernameMaxLength = 30;
     private const int PasswordMinLength = 5;
     private const int PasswordMaxLength = 20;
     private const int PasswordHashMaxLength = 255;
@@ -39,10 +39,10 @@ public class Customer
     /// <param name="address2"></param>
     /// <param name="phoneNumber"></param>
     /// <param name="mailAddress"></param>
-    /// <param name="userName"></param>
+    /// <param name="Username"></param>
     /// <param name="password"></param>
     /// <param name="passwordHash"></param>
-    private Customer(string customerUuid, string name, string address1, string address2, string phoneNumber, string mailAddress, string userName, string password, string passwordHash)
+    private Customer(string customerUuid, string name, string address1, string address2, string phoneNumber, string mailAddress, string Username, string password, string passwordHash)
     {
         this.CustomerUuid = customerUuid;
         this.Name = name;
@@ -50,7 +50,7 @@ public class Customer
         this.Address2 = address2;
         this.PhoneNumber = phoneNumber;
         this.MailAddress = mailAddress;
-        this.UserName = userName;
+        this.Username = Username;
         this.Password = password;
         this.PasswordHash = passwordHash;
     }
@@ -64,9 +64,9 @@ public class Customer
     /// <param name="address2"></param>
     /// <param name="phoneNumber"></param>
     /// <param name="mailAddress"></param>
-    /// <param name="userName"></param>
+    /// <param name="Username"></param>
     /// <param name="passwordHash"></param>
-    private Customer(string customerUuid, string name, string address1, string address2, string phoneNumber, string mailAddress, string userName, string passwordHash)
+    private Customer(string customerUuid, string name, string address1, string address2, string phoneNumber, string mailAddress, string Username, string passwordHash)
     {
         this.CustomerUuid = customerUuid;
         this.Name = name;
@@ -74,7 +74,7 @@ public class Customer
         this.Address2 = address2;
         this.PhoneNumber = phoneNumber;
         this.MailAddress = mailAddress;
-        this.UserName = userName;
+        this.Username = Username;
         this.PasswordHash = passwordHash;
     }
 
@@ -88,11 +88,11 @@ public class Customer
     /// <param name="address2"></param>
     /// <param name="phoneNumber"></param>
     /// <param name="mailAddress"></param>
-    /// <param name="userName"></param>
+    /// <param name="Username"></param>
     /// <param name="password"></param>
     /// <param name="passwordHash"></param>
     /// <returns></returns>
-    public static Customer Create(string name, string address1, string address2, string phoneNumber, string mailAddress, string userName, string password, string passwordHash)
+    public static Customer Create(string name, string address1, string address2, string phoneNumber, string mailAddress, string Username, string password, string passwordHash)
     {
         var customerUuid = Guid.NewGuid().ToString();
         //バリデーション
@@ -101,9 +101,9 @@ public class Customer
         ValidateAddress2(address2);
         ValidatePhoneNumber(phoneNumber);
         ValidateMailAddress(mailAddress);
-        ValidateUserName(userName);
+        ValidateUsername(Username);
         ValidatePassword(password);
-        return new Customer(customerUuid, name, address1, address2, phoneNumber, mailAddress, userName, password, passwordHash);
+        return new Customer(customerUuid, name, address1, address2, phoneNumber, mailAddress, Username, password, passwordHash);
     }
 
     /// <summary>
@@ -115,9 +115,9 @@ public class Customer
     /// <param name="address2"></param>
     /// <param name="phoneNumber"></param>
     /// <param name="mailAddress"></param>
-    /// <param name="userName"></param>
+    /// <param name="Username"></param>
     /// <param name="passwordHash"></param>
-    public void Restore(string customerUuid, string name, string address1, string address2, string phoneNumber, string mailAddress, string userName, string passwordHash)
+    public static Customer Restore(string customerUuid, string name, string address1, string address2, string phoneNumber, string mailAddress, string Username, string passwordHash)
     {
         ValidateUuid(customerUuid);
         ValidateName(name);
@@ -125,16 +125,9 @@ public class Customer
         ValidateAddress2(address2);
         ValidatePhoneNumber(phoneNumber);
         ValidateMailAddress(mailAddress);
-        ValidateUserName(userName);
+        ValidateUsername(Username);
 
-        this.CustomerUuid = customerUuid;
-        this.Name = name;
-        this.Address1 = address1;
-        this.Address2 = address2;
-        this.PhoneNumber = phoneNumber;
-        this.MailAddress = mailAddress;
-        this.UserName = userName;
-        this.PasswordHash = passwordHash;
+        return new Customer(customerUuid, name, address1, address2, phoneNumber, mailAddress, Username, passwordHash);
     }
 
     /// <summary>
@@ -152,6 +145,7 @@ public class Customer
             throw new DomainException("識別Idの形式が不正です。", nameof(uuid));
         }
     }
+
 
     /// <summary>
     /// 顧客名を検証する
@@ -248,18 +242,18 @@ public class Customer
     /// <summary>
     ///   アカウント名を検証する
     /// </summary>
-    /// <param name="userName"></param>
+    /// <param name="Username"></param>
     /// <exception cref="DomainException"></exception>
-    public static void ValidateUserName(string userName)
+    public static void ValidateUsername(string Username)
     {
-        if (string.IsNullOrWhiteSpace(userName))
+        if (string.IsNullOrWhiteSpace(Username))
         {
-            throw new DomainException("アカウント名は必須です。", nameof(userName));
+            throw new DomainException("アカウント名は必須です。", nameof(Username));
         }
 
-        if (userName.Length > UserNameMaxLength)
+        if (Username.Length > UsernameMaxLength)
         {
-            throw new DomainException($"アカウント名は{UserNameMaxLength}文字以内で入力してください。", nameof(userName));
+            throw new DomainException($"アカウント名は{UsernameMaxLength}文字以内で入力してください。", nameof(Username));
         }
     }
 
