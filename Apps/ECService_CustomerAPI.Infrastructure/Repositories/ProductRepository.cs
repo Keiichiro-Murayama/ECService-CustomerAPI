@@ -65,21 +65,27 @@ public class ProductRepository : IProductRepository
     /// <param name="quantity"></param>
     /// <returns></returns>
     /// <exception cref="InternalException"></exception>
-    public async Task UpdateProductStockAsync(string productUuid, int quantity)
+    public async Task UpdateProductStockAsync(string productUuid, int subtractedQuantity)
     {
+        var parsedUuid = Guid.Parse(productUuid);
         var product = await _context.Products
-            .Where(p => p.ProductUuid == Guid.Parse(productUuid))
-            .Include(p => p.ProductStock)
-            .FirstOrDefaultAsync();
+                // FOR UPDATEを使用して悲観的ロックを取得
+                .FromSqlRaw("SELECT * FROM \"Products\" WHERE \"ProductUuid\" = {0} FOR UPDATE", parsedUuid)
+                .Include(p => p.ProductStock) // 関連する在庫データも一緒にロード
+                .FirstOrDefaultAsync();
 
         if (product == null)
         {
             throw new InternalException($"商品UUID '{productUuid}' が見つかりません。");
         }
 
-        product.ProductStock.Quantity = quantity;
+        if (product.ProductStock.Quantity < subtractedQuantity)
+        {
+            throw new InternalException($"商品UUID '{productUuid}' の在庫が不足しています。");
+        }
+
+        product.ProductStock.Quantity -= subtractedQuantity;
 
         await _context.SaveChangesAsync();
     }
-
 }

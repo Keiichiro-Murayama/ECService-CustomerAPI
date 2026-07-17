@@ -13,5 +13,6 @@ public interface IProductRepository
     /// <param name="productUuid"></param>
     /// <returns></returns>
     Task<int> SelectPriceByProductUuidAsync(string productUuid);
+    Task<int> SelectStockByProductUuidAsync(string productUuid);
 
 }
