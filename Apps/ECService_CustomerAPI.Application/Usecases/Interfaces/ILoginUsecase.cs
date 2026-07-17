@@ -10,5 +10,5 @@ public interface ILoginUsecase
     /// </summary>
     /// <param name="input">ログインの入力情報(メールアドレス・パスワード)</param>
     /// <returns>発行されたJWTを含むログイン結果</returns>
-    Task<(string AccessToken, Customer customer)> ExecuteAsync((string MailAddress, string Password) input);
+    Task<(string AccessToken, Customer Customer)> ExecuteAsync((string MailAddress, string Password) input);
 }

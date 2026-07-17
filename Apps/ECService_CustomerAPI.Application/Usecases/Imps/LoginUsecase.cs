@@ -32,7 +32,7 @@ public class LoginUsecase : ILoginUsecase
         _jwtTokenProvider = jwtTokenProvider;
     }
 
-    public async Task<(string AccessToken, Customer customer)> ExecuteAsync((string MailAddress, string Password) input)
+    public async Task<(string AccessToken, Customer Customer)> ExecuteAsync((string MailAddress, string Password) input)
     {
         var customer = await _customerRepository.FindByMailAddressAsync(input.MailAddress);
         if (customer == null)
