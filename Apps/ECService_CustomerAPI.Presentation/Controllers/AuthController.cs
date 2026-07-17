@@ -87,7 +87,6 @@ public class AuthController : ControllerBase
 
     /// <summary>
     /// ログアウトする
-    /// 
     /// </summary>
     /// <returns>成功メッセージ(200 OK)</returns>
     [HttpPost("logout")]
