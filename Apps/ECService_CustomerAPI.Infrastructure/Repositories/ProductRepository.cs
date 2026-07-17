@@ -70,7 +70,7 @@ public class ProductRepository : IProductRepository
         var parsedUuid = Guid.Parse(productUuid);
         var product = await _context.Products
                 // FOR UPDATEを使用して悲観的ロックを取得
-                .FromSqlRaw("SELECT * FROM \"Products\" WHERE \"ProductUuid\" = {0} FOR UPDATE", parsedUuid)
+                .FromSqlRaw("SELECT * FROM \"product\" WHERE \"product_uuid\" = {0} FOR UPDATE", parsedUuid)
                 .Include(p => p.ProductStock) // 関連する在庫データも一緒にロード
                 .FirstOrDefaultAsync();
 
