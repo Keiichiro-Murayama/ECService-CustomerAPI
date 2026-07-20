@@ -1,0 +1,556 @@
+<mxfile host="65bd71144e">
+    <diagram id="11309bdb-1221-443d-a2c9-c5d69198f1df" name="商品購入API">
+        <mxGraphModel dx="1165" dy="530" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="2600" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="商品購入API シーケンス図" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;fontStyle=1;fontFamily=Helvetica;" parent="1" vertex="1">
+                    <mxGeometry x="370" y="10" width="1160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Client" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;fontFamily=Helvetica;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="60" width="150" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="" style="endArrow=none;html=1;dashed=1;dashPattern=4 4;strokeColor=#666666;strokeWidth=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="155" y="100" as="sourcePoint"/>
+                        <mxPoint x="155" y="2500" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="5" value="PurchaseController" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;fontFamily=Helvetica;" parent="1" vertex="1">
+                    <mxGeometry x="270" y="60" width="150" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="" style="endArrow=none;html=1;dashed=1;dashPattern=4 4;strokeColor=#666666;strokeWidth=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="345" y="100" as="sourcePoint"/>
+                        <mxPoint x="345" y="2500" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="7" value="PurchaseUsecase" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;fontFamily=Helvetica;" parent="1" vertex="1">
+                    <mxGeometry x="470" y="60" width="150" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="" style="endArrow=none;html=1;dashed=1;dashPattern=4 4;strokeColor=#666666;strokeWidth=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="100" as="sourcePoint"/>
+                        <mxPoint x="545" y="2500" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="9" value="CustomerRepository" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;fontFamily=Helvetica;" parent="1" vertex="1">
+                    <mxGeometry x="680" y="60" width="150" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="" style="endArrow=none;html=1;dashed=1;dashPattern=4 4;strokeColor=#666666;strokeWidth=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="755" y="100" as="sourcePoint"/>
+                        <mxPoint x="755" y="2500" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="11" value="PaymentMethodRepository" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;fontFamily=Helvetica;" parent="1" vertex="1">
+                    <mxGeometry x="900" y="60" width="180" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="endArrow=none;html=1;dashed=1;dashPattern=4 4;strokeColor=#666666;strokeWidth=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="990" y="100" as="sourcePoint"/>
+                        <mxPoint x="990" y="2500" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" value="ProductRepository" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;fontFamily=Helvetica;" parent="1" vertex="1">
+                    <mxGeometry x="1130" y="60" width="150" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="" style="endArrow=none;html=1;dashed=1;dashPattern=4 4;strokeColor=#666666;strokeWidth=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1205" y="100" as="sourcePoint"/>
+                        <mxPoint x="1205" y="2500" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="15" value="OrdersRepository" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;fontFamily=Helvetica;" parent="1" vertex="1">
+                    <mxGeometry x="1350" y="60" width="150" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="" style="endArrow=none;html=1;dashed=1;dashPattern=4 4;strokeColor=#666666;strokeWidth=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1425" y="100" as="sourcePoint"/>
+                        <mxPoint x="1425" y="2500" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="17" value="UnitOfWork" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;fontFamily=Helvetica;" parent="1" vertex="1">
+                    <mxGeometry x="1550" y="60" width="150" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="" style="endArrow=none;html=1;dashed=1;dashPattern=4 4;strokeColor=#666666;strokeWidth=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1625" y="100" as="sourcePoint"/>
+                        <mxPoint x="1625" y="2500" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" value="DB" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;fontFamily=Helvetica;" parent="1" vertex="1">
+                    <mxGeometry x="1730" y="60" width="150" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="" style="endArrow=none;html=1;dashed=1;dashPattern=4 4;strokeColor=#666666;strokeWidth=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1805" y="100" as="sourcePoint"/>
+                        <mxPoint x="1805" y="2500" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="21" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="120" width="10" height="2350" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="540" y="300" width="10" height="2020" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="POST /api/customer/orders&lt;br&gt;Authorization: Bearer JWT&lt;br&gt;paymentMethodId, items[]" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="155" y="130" as="sourcePoint"/>
+                        <mxPoint x="345" y="130" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="24" value="JWT検証 / customerUuid取得" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="345" y="165" as="sourcePoint"/>
+                        <mxPoint x="420" y="195" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="420" y="195" as="sourcePoint"/>
+                        <mxPoint x="345" y="225" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="26" value="alt  [JWTが無効]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#333333;verticalAlign=top;align=left;spacingTop=4;spacingLeft=6;fontStyle=1;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="45" y="150" width="440" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="" style="endArrow=none;html=1;dashed=1;dashPattern=4 4;strokeColor=#666666;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="45" y="235" as="sourcePoint"/>
+                        <mxPoint x="485" y="235" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="28" value="else  [JWTが有効]" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="55" y="240" width="210" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="401 Unauthorized&lt;br&gt;認証エラー" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#d00000;fontColor=#d00000;strokeWidth=1.4;fontStyle=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="345" y="215" as="sourcePoint"/>
+                        <mxPoint x="155" y="215" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="30" value="ExecuteAsync(customerUuid,&lt;br&gt;paymentMethodId, items)" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="345" y="330" as="sourcePoint"/>
+                        <mxPoint x="545" y="330" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="31" value="FindByUuidAsync(customerUuid)" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="420" as="sourcePoint"/>
+                        <mxPoint x="755" y="420" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="32" value="顧客検索" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="755" y="455" as="sourcePoint"/>
+                        <mxPoint x="1805" y="455" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="33" value="顧客情報" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1805" y="490" as="sourcePoint"/>
+                        <mxPoint x="755" y="490" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="34" value="Customer" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="755" y="525" as="sourcePoint"/>
+                        <mxPoint x="545" y="525" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="35" value="alt  [顧客が存在しない]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#333333;verticalAlign=top;align=left;spacingTop=4;spacingLeft=6;fontStyle=1;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="45" y="520" width="740" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="" style="endArrow=none;html=1;dashed=1;dashPattern=4 4;strokeColor=#666666;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="45" y="600" as="sourcePoint"/>
+                        <mxPoint x="785" y="600" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="37" value="else  [顧客が存在する]" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="55" y="605" width="220" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="エラー" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="570" as="sourcePoint"/>
+                        <mxPoint x="345" y="570" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="39" value="404 Not Found&lt;br&gt;顧客が見つからない" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#d00000;fontColor=#d00000;strokeWidth=1.4;fontStyle=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="345" y="585" as="sourcePoint"/>
+                        <mxPoint x="155" y="585" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="40" value="SelectAllAsync()" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="720" as="sourcePoint"/>
+                        <mxPoint x="990" y="720" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="41" value="支払い方法一覧取得" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="990" y="755" as="sourcePoint"/>
+                        <mxPoint x="1805" y="755" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="42" value="支払い方法一覧" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1805" y="790" as="sourcePoint"/>
+                        <mxPoint x="990" y="790" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="43" value="PaymentMethods" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="990" y="825" as="sourcePoint"/>
+                        <mxPoint x="545" y="825" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="44" value="paymentMethodIdの存在確認" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="855" as="sourcePoint"/>
+                        <mxPoint x="665" y="885" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="45" value="alt  [支払い方法が存在しない]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#333333;verticalAlign=top;align=left;spacingTop=4;spacingLeft=6;fontStyle=1;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="45" y="865" width="980" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="" style="endArrow=none;html=1;dashed=1;dashPattern=4 4;strokeColor=#666666;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="45" y="950" as="sourcePoint"/>
+                        <mxPoint x="1025" y="950" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="47" value="else  [支払い方法が存在する]" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="55" y="955" width="260" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" value="エラー" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="915" as="sourcePoint"/>
+                        <mxPoint x="345" y="915" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="49" value="404 Not Found&lt;br&gt;支払い方法が見つからない" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#d00000;fontColor=#d00000;strokeWidth=1.4;fontStyle=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="345" y="930" as="sourcePoint"/>
+                        <mxPoint x="155" y="930" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="50" value="BeginTransactionAsync()" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="1065" as="sourcePoint"/>
+                        <mxPoint x="1625" y="1065" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="51" value="トランザクション開始" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1625" y="1100" as="sourcePoint"/>
+                        <mxPoint x="1805" y="1100" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="52" value="OK" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1805" y="1135" as="sourcePoint"/>
+                        <mxPoint x="1625" y="1135" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="53" value="OK" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1625" y="1170" as="sourcePoint"/>
+                        <mxPoint x="545" y="1170" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="54" value="loop  [購入商品ごとに繰り返し]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#333333;verticalAlign=top;align=left;spacingTop=4;spacingLeft=6;fontStyle=1;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="385" y="1190" width="1470" height="740" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="SelectPriceByProductUuidAsync(productUuid)" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="1240" as="sourcePoint"/>
+                        <mxPoint x="1205" y="1240" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="56" value="商品価格取得" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1205" y="1275" as="sourcePoint"/>
+                        <mxPoint x="1805" y="1275" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="57" value="price / 商品なし" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1805" y="1310" as="sourcePoint"/>
+                        <mxPoint x="1205" y="1310" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="58" value="price" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1205" y="1345" as="sourcePoint"/>
+                        <mxPoint x="545" y="1345" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="59" value="alt  [商品が存在しない]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#333333;verticalAlign=top;align=left;spacingTop=4;spacingLeft=6;fontStyle=1;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="405" y="1360" width="1430" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" value="" style="endArrow=none;html=1;dashed=1;dashPattern=4 4;strokeColor=#666666;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="405" y="1460" as="sourcePoint"/>
+                        <mxPoint x="1835" y="1460" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="61" value="else  [商品が存在する]" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="415" y="1465" width="220" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" value="RollbackAsync()" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="1405" as="sourcePoint"/>
+                        <mxPoint x="1625" y="1405" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="63" value="ロールバック" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1625" y="1435" as="sourcePoint"/>
+                        <mxPoint x="1805" y="1435" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="64" value="OK" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1805" y="1460" as="sourcePoint"/>
+                        <mxPoint x="1625" y="1460" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="65" value="OK" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1625" y="1490" as="sourcePoint"/>
+                        <mxPoint x="545" y="1490" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="66" value="エラー" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="1515" as="sourcePoint"/>
+                        <mxPoint x="345" y="1515" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="67" value="404 Not Found&lt;br&gt;商品が見つからない" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#d00000;fontColor=#d00000;strokeWidth=1.4;fontStyle=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="345" y="1530" as="sourcePoint"/>
+                        <mxPoint x="155" y="1530" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="68" value="UpdateProductStockAsync(productUuid, quantity)" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="1580" as="sourcePoint"/>
+                        <mxPoint x="1205" y="1580" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="69" value="商品在庫の悲観的ロック&lt;br&gt;SELECT ... FOR UPDATE" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1205" y="1615" as="sourcePoint"/>
+                        <mxPoint x="1805" y="1615" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="70" value="在庫確認・減算" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1205" y="1655" as="sourcePoint"/>
+                        <mxPoint x="1805" y="1655" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="71" value="OK / 在庫不足" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1805" y="1690" as="sourcePoint"/>
+                        <mxPoint x="1205" y="1690" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="72" value="OK" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1205" y="1725" as="sourcePoint"/>
+                        <mxPoint x="545" y="1725" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="73" value="alt  [在庫不足]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#333333;verticalAlign=top;align=left;spacingTop=4;spacingLeft=6;fontStyle=1;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="405" y="1740" width="1430" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="74" value="" style="endArrow=none;html=1;dashed=1;dashPattern=4 4;strokeColor=#666666;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="405" y="1830" as="sourcePoint"/>
+                        <mxPoint x="1835" y="1830" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="75" value="else  [在庫更新成功]" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="415" y="1835" width="220" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="76" value="RollbackAsync()" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="1780" as="sourcePoint"/>
+                        <mxPoint x="1625" y="1780" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="77" value="ロールバック" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1625" y="1810" as="sourcePoint"/>
+                        <mxPoint x="1805" y="1810" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="78" value="OK" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1805" y="1835" as="sourcePoint"/>
+                        <mxPoint x="1625" y="1835" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="79" value="OK" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1625" y="1865" as="sourcePoint"/>
+                        <mxPoint x="545" y="1865" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="80" value="エラー" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="1890" as="sourcePoint"/>
+                        <mxPoint x="345" y="1890" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="81" value="400 Bad Request&lt;br&gt;在庫不足" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#d00000;fontColor=#d00000;strokeWidth=1.4;fontStyle=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="345" y="1905" as="sourcePoint"/>
+                        <mxPoint x="155" y="1905" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="82" value="OrderDetail.Create(productUuid, quantity)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="1870" as="sourcePoint"/>
+                        <mxPoint x="685" y="1870" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="83" value="amountTotal += price × quantity" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="1900" as="sourcePoint"/>
+                        <mxPoint x="685" y="1900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="84" value="Orders.Create(amountTotal,&lt;br&gt;customerUuid, paymentMethodId,&lt;br&gt;orderDetails)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="1985" as="sourcePoint"/>
+                        <mxPoint x="695" y="2010" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="85" value="※ InitialOrderStatusId = 1（注文済み）を内部設定" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontFamily=Helvetica;" parent="1" vertex="1">
+                    <mxGeometry x="760" y="1950" width="330" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="86" value="CreateAsync(order)" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="2085" as="sourcePoint"/>
+                        <mxPoint x="1425" y="2085" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="87" value="orders 登録" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1425" y="2120" as="sourcePoint"/>
+                        <mxPoint x="1805" y="2120" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="88" value="orders_detail 登録" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1425" y="2160" as="sourcePoint"/>
+                        <mxPoint x="1805" y="2160" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="89" value="orderUuid" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1805" y="2195" as="sourcePoint"/>
+                        <mxPoint x="1425" y="2195" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="90" value="orderUuid" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1425" y="2230" as="sourcePoint"/>
+                        <mxPoint x="545" y="2230" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="91" value="alt  [注文登録中に例外発生]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#333333;verticalAlign=top;align=left;spacingTop=4;spacingLeft=6;fontStyle=1;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="385" y="2260" width="1470" height="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="92" value="" style="endArrow=none;html=1;dashed=1;dashPattern=4 4;strokeColor=#666666;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="385" y="2395" as="sourcePoint"/>
+                        <mxPoint x="1855" y="2395" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="93" value="else  [注文登録成功]" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="395" y="2400" width="230" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" value="RollbackAsync()" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="2305" as="sourcePoint"/>
+                        <mxPoint x="1625" y="2305" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="95" value="ロールバック" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1625" y="2335" as="sourcePoint"/>
+                        <mxPoint x="1805" y="2335" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="96" value="OK" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1805" y="2365" as="sourcePoint"/>
+                        <mxPoint x="1625" y="2365" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="97" value="OK" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1625" y="2390" as="sourcePoint"/>
+                        <mxPoint x="545" y="2390" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="98" value="エラー" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="2415" as="sourcePoint"/>
+                        <mxPoint x="345" y="2415" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="99" value="500 Internal Server Error" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#d00000;fontColor=#d00000;strokeWidth=1.4;fontStyle=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="345" y="2430" as="sourcePoint"/>
+                        <mxPoint x="155" y="2430" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="100" value="CommitAsync()" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="2460" as="sourcePoint"/>
+                        <mxPoint x="1625" y="2460" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="101" value="コミット" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.2;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1625" y="2490" as="sourcePoint"/>
+                        <mxPoint x="1805" y="2490" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="102" value="OK" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1805" y="2515" as="sourcePoint"/>
+                        <mxPoint x="1625" y="2515" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="103" value="OK" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1625" y="2540" as="sourcePoint"/>
+                        <mxPoint x="545" y="2540" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="104" value="orderUuid" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="545" y="2565" as="sourcePoint"/>
+                        <mxPoint x="345" y="2565" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="105" value="200 OK&lt;br&gt;{ orderUuid, message }" style="endArrow=open;html=1;rounded=0;dashed=1;dashPattern=6 4;strokeColor=#333333;strokeWidth=1;fontSize=12;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="345" y="2585" as="sourcePoint"/>
+                        <mxPoint x="155" y="2585" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
