@@ -1,9 +1,10 @@
 using System.Security.Claims;
+using ECService_CustomerAPI.Application.Exceptions;
 using ECService_CustomerAPI.Application.Usecases.Interfaces;
+using ECService_CustomerAPI.Domain.Exceptions;
 using ECService_CustomerAPI.Presentation.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace ECService_CustomerAPI.Presentation.Controllers;
 
@@ -11,23 +12,23 @@ namespace ECService_CustomerAPI.Presentation.Controllers;
 /// 商品購入に関するAPIを提供する
 /// </summary>
 [ApiController]
-[Route("/api/customer")]
+[Route("api/customer")]
 [Tags("商品購入")]
 [Authorize]
 public class PurchaseController : ControllerBase
 {
     private readonly IPurchaseUsecase _purchaseUsecase;
+    private readonly ILogger<PurchaseController> _logger;
 
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    /// <param name="purchaseUsecase">
-    /// 商品購入ユースケース
-    /// </param>
     public PurchaseController(
-        IPurchaseUsecase purchaseUsecase)
+        IPurchaseUsecase purchaseUsecase,
+        ILogger<PurchaseController> logger)
     {
         _purchaseUsecase = purchaseUsecase;
+        _logger = logger;
     }
 
     /// <summary>
@@ -55,7 +56,7 @@ public class PurchaseController : ControllerBase
         [FromBody] PurchaseRequest? model)
     {
         /*
-         * 1. リクエストボディが送信されているか確認する
+         * 1. リクエストボディを確認する
          */
         if (model == null)
         {
@@ -68,31 +69,23 @@ public class PurchaseController : ControllerBase
         /*
          * 2. JWTから顧客UUIDを取得する
          *
-         * JwtTokenProviderではsubクレームに
-         * CustomerUuidを設定している。
-         *
-         * JWTのクレーム変換によって
-         * NameIdentifierへ変換される場合も考慮する。
+         * JWTのsubがNameIdentifierへ変換される場合と、
+         * subのまま保持される場合の両方に対応する。
          */
         var customerUuid =
-            User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value
-            ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            User.FindFirstValue(ClaimTypes.NameIdentifier)
+            ?? User.FindFirstValue("sub");
 
-        /*
-         * Authorize属性により通常は認証処理で拒否されるが、
-         * JWT内に顧客UUIDが存在しない場合も確認する。
-         */
         if (string.IsNullOrWhiteSpace(customerUuid))
         {
             return Unauthorized(new
             {
-                error = "Unauthorized",
                 message = "認証が必要です。ログインしてください。"
             });
         }
 
         /*
-         * 3. 購入商品一覧をUsecaseの引数形式へ変換する
+         * 3. ViewModelをUsecaseの引数形式へ変換する
          */
         var items =
             model.Items?
@@ -104,27 +97,90 @@ public class PurchaseController : ControllerBase
                 .ToList()
             ?? new List<(string ProductUuid, int Quantity)>();
 
-        /*
-         * 4. 商品購入ユースケースを実行する
-         *
-         * DomainExceptionやNotFoundExceptionなどは、
-         * 後で例外処理MiddlewareがHTTPレスポンスへ変換する。
-         */
-        var orderUuid =
-            await _purchaseUsecase.ExecuteAsync(
-                customerUuid,
-                model.PaymentMethodId,
-                items);
-
-        /*
-         * 5. 購入結果を返す
-         */
-        var response = new PurchaseResponse
+        try
         {
-            OrderUuid = orderUuid,
-            Message = "購入が完了しました。"
-        };
+            /*
+             * 4. 商品購入処理を実行する
+             */
+            var orderUuid =
+                await _purchaseUsecase.ExecuteAsync(
+                    customerUuid,
+                    model.PaymentMethodId,
+                    items);
 
-        return Ok(response);
+            /*
+             * 5. 正常終了レスポンスを返す
+             */
+            var response = new PurchaseResponse
+            {
+                OrderUuid = orderUuid,
+                Message = "購入が完了しました。"
+            };
+
+            return Ok(response);
+        }
+        catch (DomainException ex)
+        {
+            /*
+             * UUID形式不正、数量不正、商品未指定、
+             * 在庫不足など
+             */
+            _logger.LogWarning(
+                ex,
+                "商品購入処理で入力エラーが発生しました。");
+
+            return BadRequest(new
+            {
+                message = ex.Message
+            });
+        }
+        catch (NotFoundException ex)
+        {
+            /*
+             * 顧客、商品、支払い方法が存在しない場合
+             */
+            _logger.LogWarning(
+                ex,
+                "商品購入処理で対象データが見つかりませんでした。");
+
+            return NotFound(new
+            {
+                message = ex.Message
+            });
+        }
+        catch (InternalException ex)
+        {
+            /*
+             * DB処理などの内部エラー
+             */
+            _logger.LogError(
+                ex,
+                "商品購入処理で内部エラーが発生しました。");
+
+            return StatusCode(
+                StatusCodes.Status500InternalServerError,
+                new
+                {
+                    message =
+                        "サーバー内部で予期せぬエラーが発生しました。"
+                });
+        }
+        catch (Exception ex)
+        {
+            /*
+             * 想定していない例外
+             */
+            _logger.LogError(
+                ex,
+                "商品購入処理で予期しないエラーが発生しました。");
+
+            return StatusCode(
+                StatusCodes.Status500InternalServerError,
+                new
+                {
+                    message =
+                        "サーバー内部で予期せぬエラーが発生しました。"
+                });
+        }
     }
 }
