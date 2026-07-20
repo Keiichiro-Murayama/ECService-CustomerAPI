@@ -21,7 +21,12 @@ public static class ApplicationServiceCollectionExtensions
         services.AddScoped<IPasswordService, PasswordService>();
         services.AddScoped<ILoginUsecase, LoginUsecase>();
         services.AddScoped<IJwtTokenProvider, JwtTokenProvider>();
+<<<<<<< HEAD
         services.AddScoped<IPurchaseUsecase, PurchaseUsecase>();
+=======
+        services.AddScoped<IGetOrderHistoriesUsecase, GetOrderHistoriesUsecase>();
+        services.AddScoped<IGetOrderDetailsUsecase, GetOrderDetailsUsecase>();
+>>>>>>> bcc22bf (明細取得、履歴取得作成)
 
         return services;
     }

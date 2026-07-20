@@ -88,4 +88,29 @@ public class ProductRepository : IProductRepository
 
         await _context.SaveChangesAsync();
     }
+
+    //石原:追加
+    /// <summary>
+    /// 商品UUIDから商品名を取得する
+    /// </summary>
+    /// <param name="productUuid">商品UUID</param>
+    /// <returns>商品名</returns>
+    /// <exception cref="InternalException">
+    /// 指定した商品が存在しない場合
+    /// </exception>
+    public async Task<string> SelectNameByProductUuidAsync(
+        string productUuid)
+    {
+        var product = await _context.Products
+            .Where(p => p.ProductUuid == Guid.Parse(productUuid))
+            .FirstOrDefaultAsync();
+
+        if (product == null)
+        {
+            throw new InternalException(
+                $"商品UUID '{productUuid}' が見つかりません。");
+        }
+
+        return product.Name;
+    }
 }

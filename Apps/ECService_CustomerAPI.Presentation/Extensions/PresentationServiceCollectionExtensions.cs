@@ -1,5 +1,6 @@
 // using ECService.Presentation.Adapters;
 using Microsoft.Extensions.DependencyInjection;
+using ECService_CustomerAPI.Presentation.Adapters;
 
 namespace ECService_CustomerAPI.Presentation.Extensions;
 
@@ -17,7 +18,8 @@ public static class PresentationServiceCollectionExtensions
     {
         // 商品詳細取得用ViewModelAdapter
         // services.AddScoped<GetProductViewModelAdapter>();
-
+        services.AddScoped<GetOrderHistoriesViewModelAdapter>();
+        services.AddScoped<GetOrderDetailsViewModelAdapter>();
 
 
         return services;

@@ -29,4 +29,12 @@ public interface IProductRepository
     /// <returns></returns>
     Task UpdateProductStockAsync(string productUuid, int subtractedQuantity);
 
+    //石原:追加
+    /// <summary>
+    /// 商品UUIDから商品名を取得する
+    /// </summary>
+    /// <param name="productUuid">商品UUID</param>
+    /// <returns>商品名</returns>
+    Task<string> SelectNameByProductUuidAsync(string productUuid);
+
 }
