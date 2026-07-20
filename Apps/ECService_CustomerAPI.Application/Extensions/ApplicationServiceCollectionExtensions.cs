@@ -21,6 +21,7 @@ public static class ApplicationServiceCollectionExtensions
         services.AddScoped<IPasswordService, PasswordService>();
         services.AddScoped<ILoginUsecase, LoginUsecase>();
         services.AddScoped<IJwtTokenProvider, JwtTokenProvider>();
+        services.AddScoped<IPurchaseUsecase, PurchaseUsecase>();
 
         return services;
     }
