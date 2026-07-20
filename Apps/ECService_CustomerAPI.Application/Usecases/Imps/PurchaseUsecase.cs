@@ -135,7 +135,7 @@ public class PurchaseUsecase : IPurchaseUsecase
         if (!paymentMethodExists)
         {
             throw new NotFoundException(
-                "支払い方法が見つかりません。");
+                "指定されたリソースが見つかりません。");
         }
 
         var amountTotal = 0;

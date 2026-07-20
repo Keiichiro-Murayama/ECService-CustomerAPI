@@ -7,8 +7,9 @@ public class PurchaseRequest
 {
     /// <summary>
     /// 支払い方法ID
+    /// JSONでは「"1"」のような文字列として受け取る
     /// </summary>
-    public int PaymentMethodId { get; set; }
+    public string PaymentMethodId { get; set; } = string.Empty;
 
     /// <summary>
     /// 購入商品一覧
