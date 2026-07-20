@@ -76,6 +76,29 @@ public class CustomerRepository : ICustomerRepository
         return customer;
     }
 
+    //石原:追加 アカウント名の重複チェックに使用する検索処理
+    /// <summary>
+    /// 顧客のアカウント名で検索する
+    /// </summary>
+    /// <param name="username">アカウント名</param>
+    /// <returns>該当する顧客。存在しない場合はnull</returns>
+    public async Task<Customer?> FindByUsernameAsync(string username)
+    {
+        var customerEntity =
+            await _context.Customers.FirstOrDefaultAsync(
+                customer => customer.Username == username);
+
+        if (customerEntity == null)
+        {
+            return null;
+        }
+
+        var customer =
+            await _customerAdapter.RestoreAsync(customerEntity);
+
+        return customer;
+    }
+
     /// <summary>
     ///   顧客を顧客UUIDで検索する
     /// </summary>

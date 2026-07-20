@@ -93,7 +93,7 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("customer");
+                    b.ToTable("customer", (string)null);
                 });
 
             modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.DepartmentEntity", b =>
@@ -117,7 +117,7 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("department");
+                    b.ToTable("department", (string)null);
                 });
 
             modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.EmployeeAccountEntity", b =>
@@ -167,7 +167,7 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("employee_account");
+                    b.ToTable("employee_account", (string)null);
                 });
 
             modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.EmployeeEntity", b =>
@@ -206,7 +206,7 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
                     b.HasIndex("EmployeeUuid")
                         .IsUnique();
 
-                    b.ToTable("employee");
+                    b.ToTable("employee", (string)null);
                 });
 
             modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.OrderStatusEntity", b =>
@@ -229,7 +229,7 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("order_status");
+                    b.ToTable("order_status", (string)null);
                 });
 
             modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.OrdersDetailEntity", b =>
@@ -259,7 +259,7 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("orders_detail");
+                    b.ToTable("orders_detail", (string)null);
                 });
 
             modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.OrdersEntity", b =>
@@ -307,7 +307,7 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
 
                     b.HasIndex("PaymentMethodId");
 
-                    b.ToTable("orders");
+                    b.ToTable("orders", (string)null);
                 });
 
             modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.PaymentMethodEntity", b =>
@@ -330,7 +330,7 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("payment_method");
+                    b.ToTable("payment_method", (string)null);
                 });
 
             modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.ProductCategoryEntity", b =>
@@ -357,7 +357,7 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
                     b.HasIndex("CategoryUuid")
                         .IsUnique();
 
-                    b.ToTable("product_category");
+                    b.ToTable("product_category", (string)null);
                 });
 
             modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.ProductEntity", b =>
@@ -403,7 +403,7 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
                     b.HasIndex("ProductUuid")
                         .IsUnique();
 
-                    b.ToTable("product");
+                    b.ToTable("product", (string)null);
                 });
 
             modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.ProductStockEntity", b =>
@@ -435,7 +435,7 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
                     b.HasIndex("StockUuid")
                         .IsUnique();
 
-                    b.ToTable("product_stock");
+                    b.ToTable("product_stock", (string)null);
                 });
 
             modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.EmployeeAccountEntity", b =>

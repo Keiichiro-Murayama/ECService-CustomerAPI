@@ -34,6 +34,15 @@ namespace ECService_CustomerAPI.Infrastructure.Entities
         [MaxLength(20)]
         public string Name { get; set; } = string.Empty;
 
+        //石原:追加 顧客の氏名カナをDBに保存するプロパティ
+        /// <summary>
+        /// 顧客名カナ
+        /// </summary>
+        [Required]
+        [Column("name_kana")]
+        [MaxLength(20)]
+        public string NameKana { get; set; } = string.Empty;
+
         /// <summary>
         /// 住所1
         /// </summary>
@@ -91,6 +100,7 @@ namespace ECService_CustomerAPI.Infrastructure.Entities
         public DateTime CreatedAt { get; set; }
 
         //ナビゲーションプロパティ
-        public ICollection<OrdersEntity>? OrdersEntities { get; set; } = new List<OrdersEntity>();
+        public ICollection<OrdersEntity>? OrdersEntities { get; set; }
+            = new List<OrdersEntity>();
     }
 }
