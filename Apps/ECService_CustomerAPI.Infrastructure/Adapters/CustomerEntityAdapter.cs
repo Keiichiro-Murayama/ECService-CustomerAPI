@@ -32,7 +32,8 @@ public class CustomerEntityAdapter
             PhoneNumber = domain.PhoneNumber,
             MailAddress = domain.MailAddress,
             Username = domain.Username,
-            Password = domain.PasswordHash
+            Password = domain.PasswordHash,
+            CreatedAt = System.DateTime.UtcNow//石原:追加 顧客アカウントの登録日時をUTCで設定
         });
     }
 

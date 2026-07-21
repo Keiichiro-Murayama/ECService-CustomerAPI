@@ -16,6 +16,8 @@ public class RegisterCustomerRequest
         ErrorMessage = "氏名は20文字以内で入力してください。")]
     public string Name { get; set; } = string.Empty;
 
+    private string _nameKana = string.Empty;
+
     /// <summary>
     /// 氏名カナ
     /// </summary>
@@ -25,10 +27,14 @@ public class RegisterCustomerRequest
         MinimumLength = 2,
         ErrorMessage = "氏名カナは2文字以上20文字以内で入力してください。")]
     [RegularExpression(
-        @"^[ァ-ヶー 　]+$",
+        @"^[ァ-ヶー]+$",
         ErrorMessage = "氏名カナは全角カナで入力してください。")]
-    public string NameKana { get; set; } = string.Empty;
-
+    //石原:変更 入力時に氏名カナの前後の空白を除去する
+    public string NameKana
+    {
+        get => _nameKana;
+        set => _nameKana = value?.Trim() ?? string.Empty;
+    }
     /// <summary>
     /// 住所1
     /// </summary>

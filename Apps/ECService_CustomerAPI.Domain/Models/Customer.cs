@@ -1,5 +1,6 @@
 using System;
 using ECService_CustomerAPI.Domain.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace ECService_CustomerAPI.Domain.Models;
 
@@ -300,9 +301,8 @@ public class Customer
         }
 
         //全角カナ、長音、半角・全角スペースを許可
-        var regex =
-            new System.Text.RegularExpressions.Regex(
-                @"^[ァ-ヶー 　]+$");
+        //石原:変更 氏名カナを全角カタカナのみ許可する
+        var regex = new Regex(@"^[ァ-ヶー]+$");
 
         if (!regex.IsMatch(nameKana))
         {
