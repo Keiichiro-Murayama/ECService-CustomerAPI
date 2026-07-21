@@ -20,6 +20,7 @@ public static class PresentationServiceCollectionExtensions
         // services.AddScoped<GetProductViewModelAdapter>();
         services.AddScoped<GetOrderHistoriesViewModelAdapter>();
         services.AddScoped<GetOrderDetailsViewModelAdapter>();
+        services.AddScoped<GetPaymentMethodsViewModelAdapter>();
 
 
         return services;
