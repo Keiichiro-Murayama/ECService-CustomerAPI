@@ -36,9 +36,21 @@ public class AuthController : ControllerBase
         if (!ModelState.IsValid)
         {
             //APIの仕様上、バリデーションエラーは 400 Bad Request で返す
+            string message = "バリデーションエラーが発生しました。";
+            if (ModelState.ContainsKey(nameof(model.EmailAddress)))
+            {
+                //メールアドレス関連の場合は、メールアドレスが正しくありません。と返す
+                message = "メールアドレスを正しく入力してください。";
+            }
+            else if (ModelState.ContainsKey(nameof(model.Password)))
+            {
+                // パスワード関連の場合は、パスワードが正しく入力してください。と返す
+                message = "パスワードを正しく入力してください。";
+            }
+
             return BadRequest(new
             {
-                message = "入力値が不正です。",
+                message = message,
                 errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToArray()
             });
         }
