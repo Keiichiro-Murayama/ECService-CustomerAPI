@@ -35,10 +35,7 @@ public class AuthController : ControllerBase
     {
         if (!ModelState.IsValid)
         {
-            return BadRequest(new
-            {
-                message = "メールアドレスまたはパスワードを入力してください。"
-            });
+            return ValidationProblem(ModelState);
         }
         try
         {
