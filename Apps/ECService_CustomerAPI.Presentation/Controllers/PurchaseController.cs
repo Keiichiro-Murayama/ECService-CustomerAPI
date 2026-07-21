@@ -66,7 +66,7 @@ public class PurchaseController : ControllerBase
         StatusCodes.Status404NotFound)]
     [ProducesResponseType(
         StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<PurchaseResponse>> Purchase(
+    public async Task<ActionResult<PurchaseResponse>> PurchaseAsync(
         [FromBody] PurchaseRequest? model)
     {
         /*
