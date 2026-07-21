@@ -163,7 +163,7 @@ Authorization: Bearer {JWTトークン}
 
 ```json
 {
-  "message": "[入力項目名]が正しくありません。"
+  "message": "[入力項目名]を正しく入力してください。"
 }
 ```
 
