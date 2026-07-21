@@ -155,7 +155,8 @@ Authorization: Bearer {JWTトークン}
 
 ```json
 {
-  "message": "[未入力項目]を入力してください。"
+  "message": "[未入力項目]を正しく入力してください。"
+  "errors" : ["エラー内容のリスト"]
 }
 ```
 
