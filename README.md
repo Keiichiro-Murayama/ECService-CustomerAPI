@@ -100,7 +100,7 @@ Authorization: Bearer {JWTトークン}
 
 ```json
 {
-  "message": "未入力項目が存在しています。"
+  "message": "[未入力項目名]が存在しています。"
 }
 ```
 
@@ -108,7 +108,7 @@ Authorization: Bearer {JWTトークン}
 
 ```json
 {
-  "message": "入力値に不備があります。"
+  "message": "[入力値ルールを提示（例：アカウント名はXX文字以上YY文字未満で入力してください）]"
 }
 ```
 
@@ -155,7 +155,7 @@ Authorization: Bearer {JWTトークン}
 
 ```json
 {
-  "message": "メールアドレスまたはパスワードを入力してください。"
+  "message": "[未入力項目]を入力してください。"
 }
 ```
 
@@ -219,7 +219,7 @@ Authorization: Bearer {JWTトークン}
 {
   "customerUuid": "550e8400-e29b-41d4-a716-44665544000c",
   "name": "山田太郎",
-"nameKana" : "ヤマダタロウ"
+　"nameKana" : "ヤマダタロウ"
   "address1": "東京都渋谷区1-11-11",
   "address2": "マンション渋谷101号室",
   "phoneNumber": "03-1111-2222",
@@ -292,7 +292,7 @@ Authorization: Bearer {JWTトークン}
 
 ```json
 {
-  "message": "支払い方法、または購入商品を選択してください。"
+  "message": "[未選択項目]を選択してください。"
 }
 ```
 
@@ -300,7 +300,7 @@ Authorization: Bearer {JWTトークン}
 
 ```json
 {
-  "message": "申し訳ありませんが、商品「ボールペン(黒)」の在庫が不足しています。"
+  "message": "商品「ボールペン(黒)」の在庫が不足しています。"
 }
 ```
 
@@ -308,7 +308,7 @@ Authorization: Bearer {JWTトークン}
 
 ```json
 {
-  "message": "指定されたリソースが見つかりません。"
+  "message": "指定された支払方法が見つかりません。"
 }
 ```
 
