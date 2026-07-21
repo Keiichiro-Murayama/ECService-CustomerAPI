@@ -219,7 +219,7 @@ Authorization: Bearer {JWTトークン}
 {
   "customerUuid": "550e8400-e29b-41d4-a716-44665544000c",
   "name": "山田太郎",
-  "nameKana" : "ヤマダタロウ"
+  "nameKana" : "ヤマダタロウ",
   "address1": "東京都渋谷区1-11-11",
   "address2": "マンション渋谷101号室",
   "phoneNumber": "03-1111-2222",
