@@ -24,6 +24,7 @@ public static class ApplicationServiceCollectionExtensions
         services.AddScoped<IPurchaseUsecase, PurchaseUsecase>();
         services.AddScoped<IGetOrderHistoriesUsecase, GetOrderHistoriesUsecase>();
         services.AddScoped<IGetOrderDetailsUsecase, GetOrderDetailsUsecase>();
+        services.AddScoped<IRegisterCustomerUsecase, RegisterCustomerUsecase>();
 
         return services;
     }
