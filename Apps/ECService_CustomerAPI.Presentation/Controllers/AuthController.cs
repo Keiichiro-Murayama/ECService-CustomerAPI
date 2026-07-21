@@ -35,7 +35,12 @@ public class AuthController : ControllerBase
     {
         if (!ModelState.IsValid)
         {
-            return ValidationProblem(ModelState);
+            //APIの仕様上、バリデーションエラーは 400 Bad Request で返す
+            return BadRequest(new
+            {
+                message = "入力値が不正です。",
+                errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToArray()
+            });
         }
         try
         {
@@ -58,7 +63,6 @@ public class AuthController : ControllerBase
             // 通常の認証失敗（パスワード間違いなど）の場合 (HTTP 401 Unauthorized)
             return Unauthorized(new
             {
-                error = ex.ErrorCode,
                 message = ex.Message
             });
         }

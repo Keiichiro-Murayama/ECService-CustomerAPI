@@ -37,12 +37,13 @@ public class LoginUsecase : ILoginUsecase
         var customer = await _customerRepository.FindByMailAddressAsync(input.MailAddress);
         if (customer == null)
         {
-            throw new AuthenticationException("AuthenticationFailed", "メールアドレスまたはパスワードが正しくありません。");
+            throw new AuthenticationException("メールアドレスが正しくありません。");
         }
 
-        if (!_passwordService.Verify(input.Password, customer.PasswordHash))
+        // ログイン時は再ハッシュせず、保存済みハッシュと入力平文を照合する
+        if (!_passwordService.Verify(customer.PasswordHash, input.Password))
         {
-            throw new AuthenticationException("AuthenticationFailed", "メールアドレスまたはパスワードが正しくありません。");
+            throw new AuthenticationException("パスワードが正しくありません。");
         }
 
         var accessToken = _jwtTokenProvider.IssueAccessToken(customer);

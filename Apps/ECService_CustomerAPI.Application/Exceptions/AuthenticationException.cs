@@ -24,10 +24,13 @@ public class AuthenticationException : Exception
     {
         ErrorCode = errorCode;
     }
-    public AuthenticationException(string errorCode, string message, double remainingMinutes)
-            : base(message)
+
+    //エラーコードを指定せずにメッセージのみで例外をスローする場合のコンストラクタ
+    public AuthenticationException(string message) : base(message)
     {
-        ErrorCode = errorCode;
-        RemainingMinutes = remainingMinutes;
+        ErrorCode = "AuthenticationFailed";
     }
+
+
+
 }
