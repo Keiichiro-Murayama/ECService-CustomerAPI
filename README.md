@@ -145,7 +145,7 @@ Authorization: Bearer {JWTトークン}
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0YXJvMTIzIiwibmFtZSI6I...",
   "customerUuid": "550e8400-e29b-41d4-a716-44665544000c",
   "customerName": "山田太郎",
-  "message": "ログインしました。"
+  "message": "ログインに成功しました。"
 }
 ```
 
