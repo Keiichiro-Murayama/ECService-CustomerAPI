@@ -1,32 +1,23 @@
+using System.Security.Claims;
 using ECService_CustomerAPI.Application.Exceptions;
 using ECService_CustomerAPI.Application.Usecases.Interfaces;
 using ECService_CustomerAPI.Domain.Exceptions;
 using ECService_CustomerAPI.Presentation.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace ECService_CustomerAPI.Presentation.Controllers;
 
 /// <summary>
-/// 商品購入に関するAPIを提供する。
-/// 認証機能完成前の一時的な動作確認用。
+/// 商品購入に関するAPIを提供する
 /// </summary>
 [ApiController]
 [Route("api/customer")]
 [Tags("商品購入")]
+[Authorize]
 public class PurchaseController : ControllerBase
 {
-    /*
-     * 一時的な動作確認用の顧客UUID。
-     *
-     * 必ず、現在のDBに登録されている
-     * 実在する顧客UUIDへ変更すること。
-     *
-     * 正式版では、この定数を削除して
-     * JWTから顧客UUIDを取得する。
-     */
-    private const string TemporaryCustomerUuid =
-        "10e547fc-5170-4fcb-80a9-ead52194738f";
-
     private readonly IPurchaseUsecase _purchaseUsecase;
     private readonly ILogger<PurchaseController> _logger;
 
@@ -62,6 +53,8 @@ public class PurchaseController : ControllerBase
         StatusCodes.Status200OK)]
     [ProducesResponseType(
         StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(
+        StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(
         StatusCodes.Status404NotFound)]
     [ProducesResponseType(
@@ -116,10 +109,32 @@ public class PurchaseController : ControllerBase
         }
 
         /*
-         * 4. 認証機能完成前の動作確認として、
-         *    DBに存在する顧客UUIDを一時的に使用する
+         * 4. JWTから顧客UUIDを取得する
+         *
+         * JwtTokenProviderでは、subクレームに
+         * CustomerUuidを設定している。
+         *
+         * JWTのクレーム変換によって
+         * NameIdentifierになる場合も考慮する。
          */
-        var customerUuid = TemporaryCustomerUuid;
+        var customerUuid =
+            User.FindFirst(
+                JwtRegisteredClaimNames.Sub)?.Value
+            ?? User.FindFirst(
+                ClaimTypes.NameIdentifier)?.Value;
+
+        /*
+         * [Authorize]により通常はControllerへ到達する前に
+         * 401となるが、JWT内に顧客UUIDが存在しない場合も確認する。
+         */
+        if (string.IsNullOrWhiteSpace(customerUuid))
+        {
+            return Unauthorized(new
+            {
+                message =
+                    "認証が必要です。ログインしてください。"
+            });
+        }
 
         /*
          * 5. ViewModelをUsecaseの引数形式へ変換する

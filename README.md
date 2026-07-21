@@ -364,6 +364,14 @@ Authorization: Bearer {JWTトークン}
 
 #### エラーレスポンス
 
+- 400 Bad Request（UUIDの形式が正しくない場合）
+
+```json
+{
+  "message": "注文UUIDの形式が正しくありません。"
+}
+```
+
 - 404 Not Found（指定された注文が見つからない、または他ユーザーの注文である場合）
 
 ```json
