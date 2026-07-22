@@ -28,13 +28,19 @@ public class GetOrderDetailsUsecaseTests
         const string orderUuid =
             "11111111-1111-1111-1111-111111111111";
 
-        var firstOrderDetail = OrderDetail.Restore(
-            "22222222-2222-2222-2222-222222222222",
-            2);
+        //石原:変更 他顧客の注文明細取得を防ぐため、顧客UUIDをテスト条件に追加
+        const string customerUuid =
+            "44444444-4444-4444-4444-444444444444";
 
-        var secondOrderDetail = OrderDetail.Restore(
-            "33333333-3333-3333-3333-333333333333",
-            1);
+        var firstOrderDetail =
+            OrderDetail.Restore(
+                "22222222-2222-2222-2222-222222222222",
+                2);
+
+        var secondOrderDetail =
+            OrderDetail.Restore(
+                "33333333-3333-3333-3333-333333333333",
+                1);
 
         var expectedOrderDetails =
             new List<OrderDetail>
@@ -49,7 +55,8 @@ public class GetOrderDetailsUsecaseTests
         ordersRepositoryMock
             .Setup(repository =>
                 repository.SelectOrderDetailsByOrderUuidAsync(
-                    orderUuid))
+                    orderUuid,
+                    customerUuid))
             .ReturnsAsync(expectedOrderDetails);
 
         var usecase =
@@ -58,7 +65,9 @@ public class GetOrderDetailsUsecaseTests
 
         // Act
         var result =
-            await usecase.ExecuteAsync(orderUuid);
+            await usecase.ExecuteAsync(
+                orderUuid,
+                customerUuid);
 
         // Assert
         Assert.IsNotNull(result);
@@ -83,7 +92,8 @@ public class GetOrderDetailsUsecaseTests
         ordersRepositoryMock.Verify(
             repository =>
                 repository.SelectOrderDetailsByOrderUuidAsync(
-                    orderUuid),
+                    orderUuid,
+                    customerUuid),
             Times.Once);
 
         ordersRepositoryMock.VerifyNoOtherCalls();
@@ -102,14 +112,20 @@ public class GetOrderDetailsUsecaseTests
         const string orderUuid =
             "11111111-1111-1111-1111-111111111111";
 
+        //石原:変更 他顧客の注文明細取得を防ぐため、顧客UUIDをテスト条件に追加
+        const string customerUuid =
+            "44444444-4444-4444-4444-444444444444";
+
         var ordersRepositoryMock =
             new Mock<IOrdersRepository>();
 
         ordersRepositoryMock
             .Setup(repository =>
                 repository.SelectOrderDetailsByOrderUuidAsync(
-                    orderUuid))
-            .ReturnsAsync(new List<OrderDetail>());
+                    orderUuid,
+                    customerUuid))
+            .ReturnsAsync(
+                new List<OrderDetail>());
 
         var usecase =
             new GetOrderDetailsUsecase(
@@ -117,7 +133,9 @@ public class GetOrderDetailsUsecaseTests
 
         // Act
         var result =
-            await usecase.ExecuteAsync(orderUuid);
+            await usecase.ExecuteAsync(
+                orderUuid,
+                customerUuid);
 
         // Assert
         Assert.IsNotNull(result);
@@ -126,7 +144,8 @@ public class GetOrderDetailsUsecaseTests
         ordersRepositoryMock.Verify(
             repository =>
                 repository.SelectOrderDetailsByOrderUuidAsync(
-                    orderUuid),
+                    orderUuid,
+                    customerUuid),
             Times.Once);
 
         ordersRepositoryMock.VerifyNoOtherCalls();
@@ -145,6 +164,10 @@ public class GetOrderDetailsUsecaseTests
         const string orderUuid =
             "11111111-1111-1111-1111-111111111111";
 
+        //石原:変更 他顧客の注文明細取得を防ぐため、顧客UUIDをテスト条件に追加
+        const string customerUuid =
+            "44444444-4444-4444-4444-444444444444";
+
         const string errorMessage =
             "注文明細の取得に失敗しました。";
 
@@ -154,7 +177,8 @@ public class GetOrderDetailsUsecaseTests
         ordersRepositoryMock
             .Setup(repository =>
                 repository.SelectOrderDetailsByOrderUuidAsync(
-                    orderUuid))
+                    orderUuid,
+                    customerUuid))
             .ThrowsAsync(
                 new InvalidOperationException(
                     errorMessage));
@@ -167,7 +191,10 @@ public class GetOrderDetailsUsecaseTests
         var exception =
             await Assert.ThrowsExactlyAsync<
                 InvalidOperationException>(
-                () => usecase.ExecuteAsync(orderUuid));
+                () =>
+                    usecase.ExecuteAsync(
+                        orderUuid,
+                        customerUuid));
 
         // Assert
         Assert.AreEqual(
@@ -177,7 +204,8 @@ public class GetOrderDetailsUsecaseTests
         ordersRepositoryMock.Verify(
             repository =>
                 repository.SelectOrderDetailsByOrderUuidAsync(
-                    orderUuid),
+                    orderUuid,
+                    customerUuid),
             Times.Once);
 
         ordersRepositoryMock.VerifyNoOtherCalls();

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text.Json;
 using ECService_CustomerAPI.Application.Usecases.Interfaces;
 using ECService_CustomerAPI.Domain.Models;
@@ -5,6 +6,7 @@ using ECService_CustomerAPI.Domain.Repositories;
 using ECService_CustomerAPI.Presentation.Adapters;
 using ECService_CustomerAPI.Presentation.Controllers;
 using ECService_CustomerAPI.Presentation.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -50,15 +52,24 @@ public class GetOrderDetailsControllerTests
     /// </summary>
     [TestMethod(
         DisplayName =
-            "UT-DET-007 有効な注文UUIDで注文明細が存在する場合、注文明細一覧と200を返す")]
-    public async Task GetOrderDetailsAsync_注文明細が存在する場合_注文明細一覧と200を返す()
+            "UT-DET-007 有効な注文UUIDで本人の注文明細が存在する場合、注文明細一覧と200を返す")]
+    public async Task GetOrderDetailsAsync_本人の注文明細が存在する場合_注文明細一覧と200を返す()
     {
         // Arrange
         const string orderUuid =
             "11111111-1111-1111-1111-111111111111";
 
+        const string customerUuid =
+            "44444444-4444-4444-4444-444444444444";
+
         const string productUuid =
             "22222222-2222-2222-2222-222222222222";
+
+        //石原:追加 ログイン中の顧客UUIDを認証クレームへ設定
+        SetUser(
+            new Claim(
+                ClaimTypes.NameIdentifier,
+                customerUuid));
 
         var orderDetails =
             new List<OrderDetail>
@@ -68,9 +79,12 @@ public class GetOrderDetailsControllerTests
                     2)
             };
 
+        //石原:変更 注文UUIDと顧客UUIDの両方がUsecaseへ渡されるよう変更
         _usecaseMock
             .Setup(usecase =>
-                usecase.ExecuteAsync(orderUuid))
+                usecase.ExecuteAsync(
+                    orderUuid,
+                    customerUuid))
             .ReturnsAsync(orderDetails);
 
         _productRepositoryMock
@@ -124,7 +138,9 @@ public class GetOrderDetailsControllerTests
 
         _usecaseMock.Verify(
             usecase =>
-                usecase.ExecuteAsync(orderUuid),
+                usecase.ExecuteAsync(
+                    orderUuid,
+                    customerUuid),
             Times.Once);
 
         _productRepositoryMock.Verify(
@@ -170,11 +186,12 @@ public class GetOrderDetailsControllerTests
             (BadRequestObjectResult)result.Result!;
 
         var responseJson =
-    JsonSerializer.Serialize(
-        badRequestResult.Value);
+            JsonSerializer.Serialize(
+                badRequestResult.Value);
 
         using var jsonDocument =
-            JsonDocument.Parse(responseJson);
+            JsonDocument.Parse(
+                responseJson);
 
         var message =
             jsonDocument.RootElement
@@ -190,21 +207,31 @@ public class GetOrderDetailsControllerTests
     }
 
     /// <summary>
-    /// 注文明細が存在しない場合、
+    /// 本人の注文が存在しない場合、
     /// 404を返してAdapterを実行しないこと
     /// </summary>
     [TestMethod(
         DisplayName =
-            "UT-DET-009 注文明細が存在しない場合、404を返す")]
-    public async Task GetOrderDetailsAsync_注文明細が存在しない場合_404を返す()
+            "UT-DET-009 本人の注文明細が存在しない場合、404を返す")]
+    public async Task GetOrderDetailsAsync_本人の注文明細が存在しない場合_404を返す()
     {
         // Arrange
         const string orderUuid =
             "11111111-1111-1111-1111-111111111111";
 
+        const string customerUuid =
+            "44444444-4444-4444-4444-444444444444";
+
+        SetUser(
+            new Claim(
+                ClaimTypes.NameIdentifier,
+                customerUuid));
+
         _usecaseMock
             .Setup(usecase =>
-                usecase.ExecuteAsync(orderUuid))
+                usecase.ExecuteAsync(
+                    orderUuid,
+                    customerUuid))
             .ReturnsAsync(
                 new List<OrderDetail>());
 
@@ -222,11 +249,12 @@ public class GetOrderDetailsControllerTests
             (NotFoundObjectResult)result.Result!;
 
         var responseJson =
-    JsonSerializer.Serialize(
-        notFoundResult.Value);
+            JsonSerializer.Serialize(
+                notFoundResult.Value);
 
         using var jsonDocument =
-            JsonDocument.Parse(responseJson);
+            JsonDocument.Parse(
+                responseJson);
 
         var message =
             jsonDocument.RootElement
@@ -239,7 +267,9 @@ public class GetOrderDetailsControllerTests
 
         _usecaseMock.Verify(
             usecase =>
-                usecase.ExecuteAsync(orderUuid),
+                usecase.ExecuteAsync(
+                    orderUuid,
+                    customerUuid),
             Times.Once);
 
         _usecaseMock.VerifyNoOtherCalls();
@@ -259,12 +289,22 @@ public class GetOrderDetailsControllerTests
         const string orderUuid =
             "11111111-1111-1111-1111-111111111111";
 
+        const string customerUuid =
+            "44444444-4444-4444-4444-444444444444";
+
         const string errorMessage =
             "注文明細の取得に失敗しました。";
 
+        SetUser(
+            new Claim(
+                ClaimTypes.NameIdentifier,
+                customerUuid));
+
         _usecaseMock
             .Setup(usecase =>
-                usecase.ExecuteAsync(orderUuid))
+                usecase.ExecuteAsync(
+                    orderUuid,
+                    customerUuid))
             .ThrowsAsync(
                 new InvalidOperationException(
                     errorMessage));
@@ -284,7 +324,9 @@ public class GetOrderDetailsControllerTests
 
         _usecaseMock.Verify(
             usecase =>
-                usecase.ExecuteAsync(orderUuid),
+                usecase.ExecuteAsync(
+                    orderUuid,
+                    customerUuid),
             Times.Once);
 
         _usecaseMock.VerifyNoOtherCalls();
@@ -304,11 +346,19 @@ public class GetOrderDetailsControllerTests
         const string orderUuid =
             "11111111-1111-1111-1111-111111111111";
 
+        const string customerUuid =
+            "44444444-4444-4444-4444-444444444444";
+
         const string productUuid =
             "22222222-2222-2222-2222-222222222222";
 
         const string errorMessage =
             "商品情報の取得に失敗しました。";
+
+        SetUser(
+            new Claim(
+                ClaimTypes.NameIdentifier,
+                customerUuid));
 
         var orderDetails =
             new List<OrderDetail>
@@ -320,7 +370,9 @@ public class GetOrderDetailsControllerTests
 
         _usecaseMock
             .Setup(usecase =>
-                usecase.ExecuteAsync(orderUuid))
+                usecase.ExecuteAsync(
+                    orderUuid,
+                    customerUuid))
             .ReturnsAsync(orderDetails);
 
         _productRepositoryMock
@@ -346,7 +398,9 @@ public class GetOrderDetailsControllerTests
 
         _usecaseMock.Verify(
             usecase =>
-                usecase.ExecuteAsync(orderUuid),
+                usecase.ExecuteAsync(
+                    orderUuid,
+                    customerUuid),
             Times.Once);
 
         _productRepositoryMock.Verify(
@@ -363,5 +417,83 @@ public class GetOrderDetailsControllerTests
 
         _usecaseMock.VerifyNoOtherCalls();
         _productRepositoryMock.VerifyNoOtherCalls();
+    }
+
+    /// <summary>
+    /// 顧客UUIDを認証情報から取得できない場合、
+    /// 401を返すこと
+    /// </summary>
+    [TestMethod(
+        DisplayName =
+            "UT-DET-012 顧客UUIDを取得できない場合、401を返す")]
+    public async Task GetOrderDetailsAsync_顧客UUIDを取得できない場合_401を返す()
+    {
+        // Arrange
+        const string orderUuid =
+            "11111111-1111-1111-1111-111111111111";
+
+        //石原:追加 顧客UUIDを持たない認証情報を設定
+        SetUser();
+
+        // Act
+        var result =
+            await _controller.GetOrderDetailsAsync(
+                orderUuid);
+
+        // Assert
+        Assert.IsInstanceOfType<
+            UnauthorizedObjectResult>(
+                result.Result);
+
+        var unauthorizedResult =
+            (UnauthorizedObjectResult)result.Result!;
+
+        var responseJson =
+            JsonSerializer.Serialize(
+                unauthorizedResult.Value);
+
+        using var jsonDocument =
+            JsonDocument.Parse(
+                responseJson);
+
+        var message =
+            jsonDocument.RootElement
+                .GetProperty("message")
+                .GetString();
+
+        Assert.AreEqual(
+            "顧客情報を取得できませんでした。",
+            message);
+
+        _usecaseMock.VerifyNoOtherCalls();
+        _productRepositoryMock.VerifyNoOtherCalls();
+    }
+
+    /// <summary>
+    /// Controllerへ認証情報を設定する
+    /// </summary>
+    /// <param name="claims">認証クレーム</param>
+    //石原:追加 注文明細取得テストでログイン顧客を再現するための共通処理
+    private void SetUser(
+        params Claim[] claims)
+    {
+        var identity =
+            new ClaimsIdentity(
+                claims,
+                "TestAuthentication");
+
+        var principal =
+            new ClaimsPrincipal(
+                identity);
+
+        _controller.ControllerContext =
+            new ControllerContext
+            {
+                HttpContext =
+                    new DefaultHttpContext
+                    {
+                        User = principal
+                    }
+            };
     }
 }
