@@ -31,6 +31,7 @@ public class Customer
     public string PasswordHash { get; private set; } = string.Empty;
 
     ///バリデーション条件
+    private const int NameMinLength = 2;
     private const int NameMaxLength = 20;
 
     //石原:追加 氏名カナの最小文字数
@@ -41,11 +42,13 @@ public class Customer
 
     private const int AddressMaxLength = 100;
 
-    private const int PhoneNumberMaxLength = 20;
+    private const int PhoneNumberMaxLength = 14;
 
-    private const int MailAddressMaxLength = 200;
+    private const int MailAddressMinLength = 4;
+    private const int MailAddressMaxLength = 100;
 
-    private const int UsernameMaxLength = 30;
+    private const int UsernameMinLength = 5;
+    private const int UsernameMaxLength = 20;
 
     private const int PasswordMinLength = 5;
 
@@ -269,10 +272,33 @@ public class Customer
                 nameof(name));
         }
 
-        if (name.Length > NameMaxLength)
+        if (name.Length < NameMinLength ||
+            name.Length > NameMaxLength)
         {
             throw new DomainException(
-                $"顧客名は{NameMaxLength}文字以内で入力してください。",
+                $"顧客名は{NameMinLength}〜{NameMaxLength}文字で入力してください。",
+                nameof(name));
+        }
+
+        // 苗字と名前の間のスペースのみ許可
+        if (Regex.IsMatch(name, @"[ 　]{2,}") ||
+            name.StartsWith(" ") ||
+            name.StartsWith("　") ||
+            name.EndsWith(" ") ||
+            name.EndsWith("　"))
+        {
+            throw new DomainException(
+                "顧客名の空白位置が不正です。",
+                nameof(name));
+        }
+
+        // 日本語＋スペース許可
+        var regex = new Regex(@"^[一-龠々ぁ-んァ-ヶー 　]+$");
+
+        if (!regex.IsMatch(name))
+        {
+            throw new DomainException(
+                "顧客名の形式が不正です。",
                 nameof(name));
         }
     }
@@ -409,10 +435,11 @@ public class Customer
                 nameof(mailAddress));
         }
 
-        if (mailAddress.Length > MailAddressMaxLength)
+        if (mailAddress.Length < MailAddressMinLength ||
+            mailAddress.Length > MailAddressMaxLength)
         {
             throw new DomainException(
-                $"メールアドレスは{MailAddressMaxLength}文字以内で入力してください。",
+                $"メールアドレスは{MailAddressMinLength}〜{MailAddressMaxLength}文字で入力してください。",
                 nameof(mailAddress));
         }
     }
@@ -431,10 +458,11 @@ public class Customer
                 nameof(Username));
         }
 
-        if (Username.Length > UsernameMaxLength)
+        if (Username.Length < UsernameMinLength ||
+            Username.Length > UsernameMaxLength)
         {
             throw new DomainException(
-                $"アカウント名は{UsernameMaxLength}文字以内で入力してください。",
+                $"アカウント名は{UsernameMinLength}〜{UsernameMaxLength}文字で入力してください。",
                 nameof(Username));
         }
     }
