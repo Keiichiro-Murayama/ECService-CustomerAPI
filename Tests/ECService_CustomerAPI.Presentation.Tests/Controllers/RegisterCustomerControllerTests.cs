@@ -5,6 +5,7 @@ using ECService_CustomerAPI.Presentation.Controllers;
 using ECService_CustomerAPI.Presentation.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RegisterCustomerInput = (
     string Name,
@@ -20,7 +21,7 @@ namespace ECService_CustomerAPI.Presentation.Tests.Controllers;
 
 /// <summary>
 /// 顧客アカウント登録Controllerの単体テスト。
-/// HTTPルーティング、モデルバインド、DIの動作は結合テストで確認する。
+/// HTTPルーティング、モデルバインド、DIは結合テストで確認する。
 /// </summary>
 [TestClass]
 public class RegisterCustomerControllerTests
@@ -78,12 +79,15 @@ public class RegisterCustomerControllerTests
     /// UT-RC-022
     /// </summary>
     [TestMethod]
-    public async Task RegisterCustomerAsync_ModelStateにエラーがある場合_詳細メッセージを400で返す()
+    public async Task RegisterCustomerAsync_ModelStateにエラーが1件ある場合_詳細メッセージを400で返す()
     {
         // Arrange
+        const string expectedMessage =
+            "氏名カナは全角カナで入力し、スペースは文字と文字の間に1つだけ入力してください。";
+
         _sut.ModelState.AddModelError(
-            "Password",
-            "パスワードは半角英数字のみで入力してください。");
+            "NameKana",
+            expectedMessage);
 
         var request = CreateValidRequest();
 
@@ -100,7 +104,7 @@ public class RegisterCustomerControllerTests
             StatusCodes.Status400BadRequest,
             badRequest!.StatusCode ?? 0);
         Assert.AreEqual(
-            "パスワードは半角英数字のみで入力してください。",
+            expectedMessage,
             GetStringProperty(
                 badRequest.Value,
                 "message"));
@@ -118,9 +122,12 @@ public class RegisterCustomerControllerTests
     public async Task RegisterCustomerAsync_ModelStateに複数エラーがある場合_最初のメッセージを返す()
     {
         // Arrange
+        const string firstMessage =
+            "氏名のスペースは文字と文字の間に1つだけ入力してください。";
+
         _sut.ModelState.AddModelError(
             "ValidationErrors",
-            "氏名は必須項目です。");
+            firstMessage);
         _sut.ModelState.AddModelError(
             "ValidationErrors",
             "メールアドレスの形式が正しくありません。");
@@ -137,7 +144,7 @@ public class RegisterCustomerControllerTests
 
         Assert.IsNotNull(badRequest);
         Assert.AreEqual(
-            "氏名は必須項目です。",
+            firstMessage,
             GetStringProperty(
                 badRequest!.Value,
                 "message"));
@@ -152,10 +159,10 @@ public class RegisterCustomerControllerTests
     /// UT-RC-024
     /// </summary>
     [TestMethod]
-    public async Task RegisterCustomerAsync_正常なリクエストの場合_Usecaseへ値を渡して201を返す()
+    public async Task RegisterCustomerAsync_正常なリクエストの場合_8項目をUsecaseへ渡して201を返す()
     {
         // Arrange
-        var request = CreateValidRequest();
+        var request = CreateValidRequestWithSpace();
 
         _registerCustomerUsecase
             .Setup(usecase => usecase.ExecuteAsync(
@@ -250,7 +257,7 @@ public class RegisterCustomerControllerTests
     {
         // Arrange
         const string domainMessage =
-            "パスワードは半角英数字のみで入力してください。";
+            "氏名カナは全角カナで入力し、スペースは文字と文字の間に1つだけ入力してください。";
 
         _registerCustomerUsecase
             .SetupSequence(usecase =>
@@ -259,7 +266,7 @@ public class RegisterCustomerControllerTests
             .ThrowsAsync(
                 new DomainException(
                     domainMessage,
-                    "password"))
+                    "nameKana"))
             .ThrowsAsync(
                 new EmptyMessageDomainException());
 
@@ -306,12 +313,22 @@ public class RegisterCustomerControllerTests
             Name = "山田太郎",
             NameKana = "ヤマダタロウ",
             Address1 = "東京都渋谷区1-11-11",
-            Address2 = "マンション渋谷101号室",
+            Address2 = "マンション101号室",
             PhoneNumber = "03-1111-2222",
             MailAddress = "taro@example.com",
             AccountName = "taro123",
             Password = "Password123"
         };
+    }
+
+    private static RegisterCustomerRequest
+        CreateValidRequestWithSpace()
+    {
+        var request = CreateValidRequest();
+        request.Name = "山田 太郎";
+        request.NameKana = "ヤマダ タロウ";
+
+        return request;
     }
 
     private static string? GetStringProperty(
@@ -336,5 +353,4 @@ public class RegisterCustomerControllerTests
         public override string Message =>
             string.Empty;
     }
-
 }

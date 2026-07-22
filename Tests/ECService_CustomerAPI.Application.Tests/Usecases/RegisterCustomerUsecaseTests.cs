@@ -3,6 +3,7 @@ using ECService_CustomerAPI.Application.Exceptions;
 using ECService_CustomerAPI.Application.Usecases.Imps;
 using ECService_CustomerAPI.Domain.Models;
 using ECService_CustomerAPI.Domain.Repositories;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RegisterCustomerInput = (
     string Name,
@@ -18,7 +19,7 @@ namespace ECService_CustomerAPI.Application.Tests.Usecases;
 
 /// <summary>
 /// 顧客アカウント登録Usecaseの単体テスト。
-/// Domain層の個別バリデーションと実DBの動作は対象外とする。
+/// Domain層の個別バリデーションと実DBは対象外とする。
 /// </summary>
 [TestClass]
 public class RegisterCustomerUsecaseTests
@@ -101,7 +102,7 @@ public class RegisterCustomerUsecaseTests
                     createdCustomer = customer)
             .ReturnsAsync(CustomerUuid);
 
-        var input = CreateValidInput();
+        var input = CreateValidInputWithSpace();
 
         // Act
         var actualCustomerUuid =
@@ -113,16 +114,16 @@ public class RegisterCustomerUsecaseTests
             actualCustomerUuid);
         Assert.IsNotNull(createdCustomer);
         Assert.AreEqual(
-            "山田太郎",
+            "山田 太郎",
             createdCustomer!.Name);
         Assert.AreEqual(
-            "ヤマダタロウ",
+            "ヤマダ タロウ",
             createdCustomer.NameKana);
         Assert.AreEqual(
             "東京都渋谷区1-11-11",
             createdCustomer.Address1);
         Assert.AreEqual(
-            "マンション渋谷101号室",
+            "マンション101号室",
             createdCustomer.Address2);
         Assert.AreEqual(
             "03-1111-2222",
@@ -348,7 +349,21 @@ public class RegisterCustomerUsecaseTests
             Name: "山田太郎",
             NameKana: "ヤマダタロウ",
             Address1: "東京都渋谷区1-11-11",
-            Address2: "マンション渋谷101号室",
+            Address2: "マンション101号室",
+            PhoneNumber: "03-1111-2222",
+            MailAddress: "taro@example.com",
+            Username: "taro123",
+            Password: "Password123");
+    }
+
+    private static RegisterCustomerInput
+        CreateValidInputWithSpace()
+    {
+        return (
+            Name: "山田 太郎",
+            NameKana: "ヤマダ タロウ",
+            Address1: "東京都渋谷区1-11-11",
+            Address2: "マンション101号室",
             PhoneNumber: "03-1111-2222",
             MailAddress: "taro@example.com",
             Username: "taro123",
@@ -365,7 +380,7 @@ public class RegisterCustomerUsecaseTests
             string.Empty,
             "090-1234-5678",
             "existing@example.com",
-            "existing-user",
-            "existing-hash");
+            "existinguser",
+            "existinghash");
     }
 }
