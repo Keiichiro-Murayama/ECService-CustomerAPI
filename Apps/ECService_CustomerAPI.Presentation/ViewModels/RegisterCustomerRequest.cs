@@ -87,10 +87,14 @@ public class RegisterCustomerRequest
     /// <summary>
     /// パスワード
     /// </summary>
-    [Required(ErrorMessage = "パスワードは必須項目です。")]
+    [Required(
+        ErrorMessage = "パスワードは必須項目です。")]
     [StringLength(
         20,
         MinimumLength = 5,
         ErrorMessage = "パスワードは5文字以上20文字以内で入力してください。")]
+    [RegularExpression(
+        @"^[a-zA-Z0-9]+$",
+        ErrorMessage = "パスワードは半角英数字のみで入力してください。")]
     public string Password { get; set; } = string.Empty;
 }

@@ -460,6 +460,17 @@ public class Customer
                 $"パスワードは{PasswordMinLength}〜{PasswordMaxLength}文字で入力してください。",
                 nameof(password));
         }
+
+
+        // 半角英数字チェック
+        var regex = new Regex(@"^[a-zA-Z0-9]+$");
+
+        if (!regex.IsMatch(password))
+        {
+            throw new DomainException(
+                "パスワードは半角英数字のみで入力してください。",
+                nameof(password));
+        }
     }
 
     /// <summary>

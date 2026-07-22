@@ -1,3 +1,4 @@
+using System.Linq;
 using ECService_CustomerAPI.Application.Exceptions;
 using ECService_CustomerAPI.Application.Usecases.Interfaces;
 using ECService_CustomerAPI.Domain.Exceptions;
@@ -20,9 +21,7 @@ public class RegisterCustomerController : ControllerBase
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    /// <param name="registerCustomerUsecase">
-    /// 顧客アカウント登録Usecase
-    /// </param>
+    /// <param name="registerCustomerUsecase">顧客アカウント登録Usecase</param>
     public RegisterCustomerController(
         IRegisterCustomerUsecase registerCustomerUsecase)
     {
@@ -36,9 +35,9 @@ public class RegisterCustomerController : ControllerBase
     /// <returns>登録結果</returns>
     [HttpPost]
     public async Task<IActionResult> RegisterCustomerAsync(
-        [FromBody] RegisterCustomerRequest request)
+        [FromBody] RegisterCustomerRequest? request)
     {
-
+        // リクエストボディが存在しない場合
         if (request is null)
         {
             return BadRequest(new
@@ -46,28 +45,22 @@ public class RegisterCustomerController : ControllerBase
                 message = "リクエストボディが正しくありません。"
             });
         }
-        var hasEmptyRequiredField =
-            string.IsNullOrWhiteSpace(request.Name) ||
-            string.IsNullOrWhiteSpace(request.NameKana) ||
-            string.IsNullOrWhiteSpace(request.Address1) ||
-            string.IsNullOrWhiteSpace(request.PhoneNumber) ||
-            string.IsNullOrWhiteSpace(request.MailAddress) ||
-            string.IsNullOrWhiteSpace(request.AccountName) ||
-            string.IsNullOrWhiteSpace(request.Password);
 
-        if (hasEmptyRequiredField)
-        {
-            return BadRequest(new
-            {
-                message = "未入力項目が存在しています。"
-            });
-        }
-
+        // RegisterCustomerRequestのDataAnnotationsで検出された
+        // 詳細な入力値エラーメッセージを取得する。
+        // 複数エラーがある場合は最初の1件を返す。
         if (!ModelState.IsValid)
         {
+            var validationMessage = ModelState.Values
+                .SelectMany(value => value.Errors)
+                .Select(error => error.ErrorMessage)
+                .FirstOrDefault(message =>
+                    !string.IsNullOrWhiteSpace(message))
+                ?? "入力値に不備があります。";
+
             return BadRequest(new
             {
-                message = "入力値に不備があります。"
+                message = validationMessage
             });
         }
 
@@ -75,16 +68,16 @@ public class RegisterCustomerController : ControllerBase
         {
             var customerUuid =
                 await _registerCustomerUsecase.ExecuteAsync(
-                    (
-                        request.Name,
-                        request.NameKana,
-                        request.Address1,
-                        request.Address2,
-                        request.PhoneNumber,
-                        request.MailAddress,
-                        request.AccountName,
-                        request.Password
-                    ));
+                (
+                    request.Name,
+                    request.NameKana,
+                    request.Address1,
+                    request.Address2,
+                    request.PhoneNumber,
+                    request.MailAddress,
+                    request.AccountName,
+                    request.Password
+                ));
 
             return StatusCode(
                 StatusCodes.Status201Created,
@@ -96,16 +89,23 @@ public class RegisterCustomerController : ControllerBase
         }
         catch (ConflictException ex)
         {
+            // アカウント名・メールアドレス・電話番号などが
+            // 既に登録されている場合
             return Conflict(new
             {
                 message = ex.Message
             });
         }
-        catch (DomainException)
+        catch (DomainException ex)
         {
+            // Domain層で検出した具体的な入力値ルールを返す。
+            var errorMessage = string.IsNullOrWhiteSpace(ex.Message)
+                ? "入力値に不備があります。"
+                : ex.Message;
+
             return BadRequest(new
             {
-                message = "入力値に不備があります。"
+                message = errorMessage
             });
         }
     }
