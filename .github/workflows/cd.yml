@@ -36,7 +36,7 @@ jobs:
       # Linux向けにアプリを発行
       - name: アプリケーションを発行
         run: |
-          dotnet publish Apps/ECService_CustomerAPI.Presentation/ECService_CustomerAPI.Presentation.csproj \
+          dotnet publish src/ECService_CustomerAPI.Presentation/ECService_CustomerAPI.Presentation.csproj \
             --configuration Release \
             --runtime linux-x64 \
             --self-contained false \
