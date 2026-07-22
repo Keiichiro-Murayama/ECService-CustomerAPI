@@ -64,16 +64,12 @@ jobs:
           --configuration Release
           --no-restore
 
-      # EF Core Migrationを実行するためのツール
-      - name: dotnet-efをインストール
-        run: dotnet tool install --global dotnet-ef --version "10.0.*"
-
       # Migrationを使って、使い捨てDBにテーブルを作成
       - name: MigrationをテストDBに適用
         run: >
           dotnet ef database update
-          --project src/ECService_CustomerAPI.Infrastructure/ECService_CustomerAPI.Infrastructure.csproj
-          --startup-project src/ECService_CustomerAPI.Presentation/ECService_CustomerAPI.Presentation.csproj
+          --project Apps/ECService_CustomerAPI.Infrastructure/ECService_CustomerAPI.Infrastructure.csproj
+          --startup-project Apps/ECService_CustomerAPI.Presentation/ECService_CustomerAPI.Presentation.csproj
           --configuration Release
           --no-build
 
@@ -92,7 +88,7 @@ jobs:
       - name: テスト（ドメイン層）
         run: >
           dotnet test
-          tests/ECService_CustomerAPI.Domain.Tests/ECService_CustomerAPI.Domain.Tests.csproj
+          Tests/ECService_CustomerAPI.Domain.Tests/ECService_CustomerAPI.Domain.Tests.csproj
           --configuration Release
           --no-build
 
@@ -100,7 +96,7 @@ jobs:
       - name: テスト（アプリケーション層）
         run: >
           dotnet test
-          tests/ECService_CustomerAPI.Application.Tests/ECService_CustomerAPI.Application.Tests.csproj
+          Tests/ECService_CustomerAPI.Application.Tests/ECService_CustomerAPI.Application.Tests.csproj
           --configuration Release
           --no-build
 
@@ -108,6 +104,6 @@ jobs:
       - name: テスト（インフラストラクチャ層）
         run: >
           dotnet test
-          tests/ECService_CustomerAPI.Infrastructure.Tests/ECService_CustomerAPI.Infrastructure.Tests.csproj
+          Tests/ECService_CustomerAPI.Infrastructure.Tests/ECService_CustomerAPI.Infrastructure.Tests.csproj
           --configuration Release
-          --no-buildname: .NET ECService CD
+          --no-build
