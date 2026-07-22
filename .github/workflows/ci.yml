@@ -53,6 +53,10 @@ jobs:
       - name: 依存パッケージを復元
         run: dotnet restore ECService_CustomerAPI.slnx
 
+
+      - name: .NETツールを復元
+        run: dotnet tool restore
+
       # Release構成でビルド
       - name: ビルド
         run: >
