@@ -118,36 +118,61 @@ public class OrdersRepository : IOrdersRepository
     }
 
     /// <summary>
-    /// 注文UUIDで注文に含まれる注文明細のリストを返す
+    /// 注文UUIDと顧客UUIDで、本人の注文に含まれる注文明細のリストを返す
     /// </summary>
-    /// <param name="OrderUuid">注文UUID</param>
+    /// <param name="orderUuid">注文UUID</param>
+    /// <param name="customerUuid">ログイン中の顧客UUID</param>
     /// <returns>注文明細ドメインオブジェクトのリスト</returns>
-    public async Task<List<OrderDetail>> SelectOrderDetailsByOrderUuidAsync(string OrderUuid)
+    //石原:変更 他顧客の注文明細取得を防ぐため、注文UUIDと顧客UUIDの両方で検索
+    public async Task<List<OrderDetail>>
+        SelectOrderDetailsByOrderUuidAsync(
+            string orderUuid,
+            string customerUuid)
     {
-        // Step 1: 注文IDを取得
+        var parsedOrderUuid =
+            Guid.Parse(orderUuid);
+
+        var parsedCustomerUuid =
+            Guid.Parse(customerUuid);
+
+        // Step 1: 注文UUIDと顧客UUIDが一致する注文IDを取得
         var orderId = await _context.Orders
-            .Where(o => o.OrderUuid == Guid.Parse(OrderUuid))
-            .Select(o => o.Id)
+            .Where(order =>
+                order.OrderUuid == parsedOrderUuid &&
+                order.Customer.CustomerUuid == parsedCustomerUuid)
+            .Select(order => order.Id)
             .FirstOrDefaultAsync();
 
+        // 注文が存在しない場合、または他顧客の注文の場合
         if (orderId <= 0)
         {
             return new List<OrderDetail>();
         }
 
         // Step 2: 注文明細エンティティのリストを取得
-        var orderDetailEntities = await _context.OrderDetails
-            .Where(od => od.OrderId == orderId)
-            .Include(od => od.Product)
-            .ToListAsync();
+        var orderDetailEntities =
+            await _context.OrderDetails
+                .Where(orderDetail =>
+                    orderDetail.OrderId == orderId)
+                .Include(orderDetail =>
+                    orderDetail.Product)
+                .ToListAsync();
 
-        // Step 3: 注文明細エンティティのリストをドメインオブジェクトのリストに変換
-        var orderDetailsList = new List<OrderDetail>();
-        foreach (var orderDetailEntity in orderDetailEntities)
+        // Step 3: 注文明細エンティティをドメインオブジェクトへ変換
+        var orderDetailsList =
+            new List<OrderDetail>();
+
+        foreach (var orderDetailEntity
+                 in orderDetailEntities)
         {
-            var orderDetail = await _orderDetailAdapter.RestoreAsync(orderDetailEntity);
-            orderDetailsList.Add(orderDetail);
+            var orderDetail =
+                await _orderDetailAdapter.RestoreAsync(
+                    orderDetailEntity);
+
+            orderDetailsList.Add(
+                orderDetail);
         }
+
         return orderDetailsList;
     }
 }

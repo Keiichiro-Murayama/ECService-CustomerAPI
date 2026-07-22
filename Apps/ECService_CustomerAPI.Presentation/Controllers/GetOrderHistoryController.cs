@@ -13,7 +13,7 @@ namespace ECService_CustomerAPI.Presentation.Controllers;
 [ApiController]
 [Route("/api/customer/orders")]
 [Tags("購入履歴")]
-// [Authorize]
+[Authorize]
 public class GetOrderHistoryController : ControllerBase
 {
     private readonly IGetOrderHistoriesUsecase _getOrderHistoriesUsecase;

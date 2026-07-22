@@ -25,11 +25,15 @@ public interface IOrdersRepository
 
 
     /// <summary>
-    /// 注文UUIDで注文に含まれる注文明細のリストを返す
+    /// 注文UUIDと顧客UUIDで、本人の注文に含まれる注文明細のリストを返す
     /// </summary>
-    /// <param name="OrderUuid"></param>
-    /// <returns></returns>
-    Task<List<OrderDetail>> SelectOrderDetailsByOrderUuidAsync(string OrderUuid);
+    /// <param name="orderUuid">注文UUID</param>
+    /// <param name="customerUuid">ログイン中の顧客UUID</param>
+    /// <returns>注文明細ドメインオブジェクトのリスト</returns>
+    //石原:変更 他顧客の注文明細取得を防ぐため、顧客UUIDを検索条件に追加
+    Task<List<OrderDetail>> SelectOrderDetailsByOrderUuidAsync(
+        string orderUuid,
+        string customerUuid);
 
 
 

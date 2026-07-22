@@ -22,14 +22,19 @@ public class GetOrderDetailsUsecase : IGetOrderDetailsUsecase
     }
 
     /// <summary>
-    /// 注文UUIDに紐づく注文明細を取得する
+    /// 注文UUIDと顧客UUIDに紐づく注文明細を取得する
     /// </summary>
     /// <param name="orderUuid">注文UUID</param>
+    /// <param name="customerUuid">ログイン中の顧客UUID</param>
     /// <returns>注文明細一覧</returns>
+    //石原:変更 他顧客の注文明細取得を防ぐため、顧客UUIDをRepositoryへ渡す
     public async Task<List<OrderDetail>> ExecuteAsync(
-        string orderUuid)
+        string orderUuid,
+        string customerUuid)
     {
         return await _ordersRepository
-            .SelectOrderDetailsByOrderUuidAsync(orderUuid);
+            .SelectOrderDetailsByOrderUuidAsync(
+                orderUuid,
+                customerUuid);
     }
 }
