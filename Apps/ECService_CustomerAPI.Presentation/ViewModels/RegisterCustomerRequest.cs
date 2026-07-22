@@ -29,7 +29,7 @@ public class RegisterCustomerRequest
     [RegularExpression(
         @"^[ァ-ヶー]+$",
         ErrorMessage = "氏名カナは全角カナで入力してください。")]
-    //石原:変更 入力時に氏名カナの前後の空白を除去する
+
     public string NameKana
     {
         get => _nameKana;
