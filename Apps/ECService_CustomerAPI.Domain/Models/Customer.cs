@@ -280,82 +280,77 @@ public class Customer
                 nameof(name));
         }
 
-        // 苗字と名前の間のスペースのみ許可
-        if (Regex.IsMatch(name, @"[ 　]{2,}") ||
-            name.StartsWith(" ") ||
+        // 先頭・末尾の空白は禁止
+        if (name.StartsWith(" ") ||
             name.StartsWith("　") ||
             name.EndsWith(" ") ||
             name.EndsWith("　"))
         {
             throw new DomainException(
-                "顧客名の空白位置が不正です。",
+                "顧客名の先頭・末尾に空白は入力できません。",
                 nameof(name));
         }
 
-        // 日本語＋スペース許可
-        var regex = new Regex(@"^[一-龠々ぁ-んァ-ヶー 　]+$");
-
-        if (!regex.IsMatch(name))
+        // 空白は1文字のみ許可
+        if (Regex.IsMatch(name, @"[ 　]{2,}"))
         {
             throw new DomainException(
-                "顧客名の形式が不正です。",
+                "顧客名の空白は1文字まで入力できます。",
                 nameof(name));
         }
     }
-
 
     /// <summary>
     /// 顧客名カナを検証する
     /// </summary>
     /// <param name="nameKana"></param>
     /// <exception cref="DomainException"></exception>
-public static void ValidateNameKana(string nameKana)
-{
-    if (string.IsNullOrWhiteSpace(nameKana))
+    public static void ValidateNameKana(string nameKana)
     {
-        throw new DomainException(
-            "顧客名カナは必須です。",
-            nameof(nameKana));
-    }
+        if (string.IsNullOrWhiteSpace(nameKana))
+        {
+            throw new DomainException(
+                "顧客名カナは必須です。",
+                nameof(nameKana));
+        }
 
-    if (nameKana.Length < NameKanaMinLength ||
-        nameKana.Length > NameKanaMaxLength)
-    {
-        throw new DomainException(
-            $"顧客名カナは{NameKanaMinLength}〜{NameKanaMaxLength}文字で入力してください。",
-            nameof(nameKana));
-    }
+        if (nameKana.Length < NameKanaMinLength ||
+            nameKana.Length > NameKanaMaxLength)
+        {
+            throw new DomainException(
+                $"顧客名カナは{NameKanaMinLength}〜{NameKanaMaxLength}文字で入力してください。",
+                nameof(nameKana));
+        }
 
-    // 先頭・末尾スペース禁止
-    if (nameKana.StartsWith(" ") ||
-        nameKana.StartsWith("　") ||
-        nameKana.EndsWith(" ") ||
-        nameKana.EndsWith("　"))
-    {
-        throw new DomainException(
-            "顧客名カナの先頭・末尾に空白は入力できません。",
-            nameof(nameKana));
-    }
+        // 先頭・末尾スペース禁止
+        if (nameKana.StartsWith(" ") ||
+            nameKana.StartsWith("　") ||
+            nameKana.EndsWith(" ") ||
+            nameKana.EndsWith("　"))
+        {
+            throw new DomainException(
+                "顧客名カナの先頭・末尾に空白は入力できません。",
+                nameof(nameKana));
+        }
 
-    // 連続スペース禁止
-    if (Regex.IsMatch(nameKana, @"[ 　]{2,}"))
-    {
-        throw new DomainException(
-            "顧客名カナの空白は1文字まで入力できます。",
-            nameof(nameKana));
-    }
+        // スペースは1文字のみ許可
+        if (Regex.IsMatch(nameKana, @"[ 　]{2,}"))
+        {
+            throw new DomainException(
+                "顧客名カナの空白は1文字まで入力できます。",
+                nameof(nameKana));
+        }
 
-    // ★ここが重要
-    // 全角カタカナ + 長音 + 半角/全角スペースを許可
-    var regex = new Regex(@"^[ァ-ヶー 　]+$");
+        // 全角カタカナ + 長音 + スペース許可
+        var regex = new Regex(@"^[ァ-ヶー 　]+$");
 
-    if (!regex.IsMatch(nameKana))
-    {
-        throw new DomainException(
-            "顧客名カナは全角カナで入力してください。",
-            nameof(nameKana));
+        if (!regex.IsMatch(nameKana))
+        {
+            throw new DomainException(
+                "顧客名カナは全角カナで入力してください。",
+                nameof(nameKana));
+        }
     }
-}
 
     /// <summary>
     /// 住所1を検証する
