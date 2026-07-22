@@ -11,10 +11,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.9" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
+     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
+     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.9" />
+     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.9" />
+     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.9">
+       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+       <PrivateAssets>all</PrivateAssets>
+     </PackageReference>
+     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.9" />
+     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
+     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="10.2.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,5 +28,6 @@
     <ProjectReference Include="..\ECService_CustomerAPI.Infrastructure\ECService_CustomerAPI.Infrastructure.csproj" />
     <ProjectReference Include="..\ECService_CustomerAPI.Domain\ECService_CustomerAPI.Domain.csproj" />
   </ItemGroup>
+
 
 </Project>

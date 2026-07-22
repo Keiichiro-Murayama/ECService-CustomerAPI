@@ -64,6 +64,12 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
                         .HasColumnType("character varying(20)")
                         .HasColumnName("name");
 
+                    b.Property<string>("NameKana")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("name_kana");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -88,6 +94,9 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
                         .IsUnique();
 
                     b.HasIndex("MailAddress")
+                        .IsUnique();
+
+                    b.HasIndex("PhoneNumber")
                         .IsUnique();
 
                     b.HasIndex("Username")
@@ -209,30 +218,7 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
                     b.ToTable("employee");
                 });
 
-            modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.OrderStatusEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("order_status");
-                });
-
-            modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.OrdersDetailEntity", b =>
+            modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.OrderDetailEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -262,6 +248,29 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
                     b.ToTable("orders_detail");
                 });
 
+            modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.OrderStatusEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("order_status");
+                });
+
             modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.OrdersEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -279,8 +288,7 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("customer_id");
 
-                    b.Property<DateTime>("OrderDate")
-                        .ValueGeneratedOnAdd()
+                    b.Property<DateTimeOffset>("OrderDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("order_date");
 
@@ -460,7 +468,7 @@ namespace ECService_CustomerAPI.Infrastructure.Migrations
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.OrdersDetailEntity", b =>
+            modelBuilder.Entity("ECService_CustomerAPI.Infrastructure.Entities.OrderDetailEntity", b =>
                 {
                     b.HasOne("ECService_CustomerAPI.Infrastructure.Entities.OrdersEntity", "Order")
                         .WithMany("OrdersDetails")

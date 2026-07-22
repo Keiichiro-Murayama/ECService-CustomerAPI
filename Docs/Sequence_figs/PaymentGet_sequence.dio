@@ -1,0 +1,84 @@
+<mxfile host="65bd71144e">
+    <diagram id="bYMvkj1YCoyUNYKRu76u" name="ページ1">
+        <mxGraphModel dx="1207" dy="730" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="" style="shape=line;direction=south;html=1;strokeColor=#333333;strokeWidth=2;dashed=1;" vertex="1" parent="1">
+                    <mxGeometry x="555" y="104.5" width="10" height="304" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="" style="shape=line;direction=south;html=1;strokeColor=#333333;strokeWidth=2;dashed=1;" vertex="1" parent="1">
+                    <mxGeometry x="255" y="106" width="10" height="324" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+                    <mxGeometry x="555" y="168.5" width="10" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="" style="shape=line;direction=south;html=1;strokeColor=#333333;strokeWidth=2;dashed=1;" vertex="1" parent="1">
+                    <mxGeometry x="75" y="106" width="10" height="324" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+                    <mxGeometry x="255" y="140" width="10" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="購入確認画面が表示されている。" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+                    <mxGeometry x="10" y="10" width="580" height="44" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="顧客" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="10" y="58.5" width="140" height="46" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="FP009&lt;div&gt;購入確認画面&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="190" y="58.5" width="140" height="46" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="システム" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="490" y="58.5" width="140" height="46" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="データベース" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="670" y="58.5" width="140" height="46" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="" style="shape=line;direction=south;html=1;strokeColor=#333333;strokeWidth=2;dashed=1;" vertex="1" parent="1">
+                    <mxGeometry x="735" y="104.5" width="10" height="294" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="支払方法一覧の取得" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=2;fontSize=11;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="264.11" y="200.9" as="sourcePoint"/>
+                        <mxPoint x="550" y="200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="23" value="支払方法の取得" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=2;fontSize=11;" edge="1" parent="1">
+                    <mxGeometry x="0.0085" relative="1" as="geometry">
+                        <mxPoint x="560" y="213.5" as="sourcePoint"/>
+                        <mxPoint x="740" y="213.5" as="targetPoint"/>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="24" value="支払方法情報を返す" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=2;fontSize=11;dashed=1;" edge="1" parent="1" target="6">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="740" y="248.5" as="sourcePoint"/>
+                        <mxPoint x="580" y="248.5" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="25" value="FP009 購入確認画面に選択可能な支払方法を表示" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=2;fontSize=11;dashed=1;" edge="1" parent="1" target="8">
+                    <mxGeometry x="0.0031" relative="1" as="geometry">
+                        <mxPoint x="550" y="285" as="sourcePoint"/>
+                        <mxPoint x="90" y="285" as="targetPoint"/>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="48" value="顧客" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="90" y="113" width="30" height="57" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+                    <mxGeometry x="735" y="188.5" width="10" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+                    <mxGeometry x="75" y="260" width="10" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" value="支払方法情報を表示" style="endArrow=block;html=1;rounded=0;strokeColor=#000000;strokeWidth=2;fontSize=11;dashed=1;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="255" y="299.29" as="sourcePoint"/>
+                        <mxPoint x="80" y="299.79" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

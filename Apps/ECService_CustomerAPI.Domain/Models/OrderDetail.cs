@@ -27,12 +27,14 @@ public class OrderDetail
     public static OrderDetail Create(string productUuid, int count)
     {
         ValidateUuid(productUuid);
+        ValidateCount(count);
         return new OrderDetail(productUuid, count);
     }
 
     public static OrderDetail Restore(string productUuid, int count)
     {
         ValidateUuid(productUuid);
+        ValidateCount(count);
         return new OrderDetail(productUuid, count);
     }
 
@@ -49,6 +51,20 @@ public class OrderDetail
         if (!Guid.TryParse(uuid, out _))
         {
             throw new DomainException("識別Idの形式が不正です。", nameof(uuid));
+        }
+    }
+
+    /// <summary>
+    /// 数量を検証する
+    /// </summary>
+    /// <param name="count"></param>
+    /// <exception cref="DomainException"></exception>
+    ///  小倉作成
+    private static void ValidateCount(int count)
+    {
+        if (count < 1)
+        {
+            throw new DomainException("数量は1以上である必要があります。", nameof(count));
         }
     }
 }

@@ -19,6 +19,9 @@ public class Orders
     public int PaymentMethodId { get; private set; }
     public List<OrderDetail> OrderDetails { get; private set; } = new List<OrderDetail>();
 
+    //StatusIDの初期値（1 : 注文済）
+    private const int InitialOrderStatusId = 1;
+
     /// <summary>
     /// コンストラクタ
     /// </summary>
@@ -51,10 +54,10 @@ public class Orders
     /// <param name="paymentMethodId"></param>
     /// <param name="orderDetails"></param>
     /// <returns></returns>
-    public static Orders Create(int amountTotal, string CustomerUuid, int orderStatusId, int paymentMethodId, List<OrderDetail> orderDetails)
+    public static Orders Create(int amountTotal, string CustomerUuid, int paymentMethodId, List<OrderDetail> orderDetails)
     {
         var orderUuid = Guid.NewGuid().ToString();
-        var orders = new Orders(orderUuid, amountTotal, CustomerUuid, orderStatusId, paymentMethodId, orderDetails);
+        var orders = new Orders(orderUuid, amountTotal, CustomerUuid, InitialOrderStatusId, paymentMethodId, orderDetails);
         return orders;
     }
 

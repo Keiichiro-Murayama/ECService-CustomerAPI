@@ -77,6 +77,13 @@ public class OrdersRepository : IOrdersRepository
         // Step 4: 注文エンティティを作成
         var entity = await _odersAdapter.ConvertWithCustomerIdOrderDetailsAsync(order, customerId, orderDetailEntities);
 
+        /*
+        * PostgreSQLのtimestamp with time zoneへ保存するため、
+        * UTC時刻（Offset=00:00）を設定する。
+        */
+        entity.OrderDate = DateTimeOffset.UtcNow;
+
+
         // Step 5: 永続化
         await _context.Orders.AddAsync(entity);
         await _context.SaveChangesAsync();

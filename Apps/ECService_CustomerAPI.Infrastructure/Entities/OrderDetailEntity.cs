@@ -19,7 +19,7 @@ namespace ECService_CustomerAPI.Infrastructure.Entities
         /// 注文ID（FK）
         /// </summary>
         [Column("order_id")]
-        public int? OrderId { get; set; }
+        public int OrderId { get; set; } //石原：NUll非許容に変更
 
         /// <summary>
         /// 商品ID（FK）

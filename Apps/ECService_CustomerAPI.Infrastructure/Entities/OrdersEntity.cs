@@ -28,7 +28,6 @@ namespace ECService_CustomerAPI.Infrastructure.Entities
         /// </summary>
         [Required]
         [Column("order_date")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTimeOffset? OrderDate { get; set; }
 
         /// <summary>

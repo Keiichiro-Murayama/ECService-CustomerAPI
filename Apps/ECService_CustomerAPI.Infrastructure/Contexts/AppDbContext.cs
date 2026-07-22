@@ -142,6 +142,10 @@ namespace ECService_CustomerAPI.Infrastructure.Contexts
                 entity.HasIndex(e => e.Username).IsUnique();
                 entity.HasIndex(e => e.MailAddress).IsUnique();
 
+                //石原:追加 電話番号の重複登録を防ぐため一意制約を設定
+                entity.HasIndex(e => e.PhoneNumber).IsUnique();
+
+
                 entity.HasMany(e => e.OrdersEntities)
                       .WithOne(o => o.Customer)
                       .HasForeignKey(o => o.CustomerId)
