@@ -54,15 +54,15 @@ public class OrderDetail
         }
     }
 
-/// <summary>
-/// 数量を検証する
-/// </summary>
-/// <param name="count"></param>
-/// <exception cref="DomainException"></exception>
-///  小倉作成
+    /// <summary>
+    /// 数量を検証する
+    /// </summary>
+    /// <param name="count"></param>
+    /// <exception cref="DomainException"></exception>
+    ///  小倉作成
     private static void ValidateCount(int count)
     {
-        if(count < 1)
+        if (count < 1)
         {
             throw new DomainException("数量は1以上である必要があります。", nameof(count));
         }

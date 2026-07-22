@@ -65,7 +65,7 @@ public class GetPaymentMethodsControllerTests
             okResult.Value as List<PaymentMethodResponse>;
 
         Assert.IsNotNull(responses);
-        Assert.HasCount(2,responses);
+        Assert.HasCount(2, responses);
 
         Assert.AreEqual("1", responses[0].PaymentMethodId);
         Assert.AreEqual("クレジットカード", responses[0].PaymentMethodName);

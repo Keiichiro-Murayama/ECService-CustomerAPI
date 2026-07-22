@@ -32,7 +32,7 @@ public class GetPaymentMethodsViewModelAdapterTests
         var result = await _adapter.ConvertAsync(paymentMethods);
 
         // Assert
-        Assert.HasCount(2,result);
+        Assert.HasCount(2, result);
 
         Assert.AreEqual("1", result[0].PaymentMethodId);
         Assert.AreEqual("クレジットカード", result[0].PaymentMethodName);
