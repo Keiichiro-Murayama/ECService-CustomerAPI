@@ -34,6 +34,14 @@ public class RegisterCustomerController : ControllerBase
     /// <param name="request">顧客アカウント登録情報</param>
     /// <returns>登録結果</returns>
     [HttpPost]
+    [ProducesResponseType(
+    StatusCodes.Status201Created)]
+    [ProducesResponseType(
+    StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(
+    StatusCodes.Status409Conflict)]
+    [ProducesResponseType(
+    StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> RegisterCustomerAsync(
         [FromBody] RegisterCustomerRequest? request)
     {

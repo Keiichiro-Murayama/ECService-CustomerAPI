@@ -93,6 +93,11 @@ public class RegisterCustomerRequest
         MinimumLength = 5,
         ErrorMessage =
             "アカウント名は20文字以内で入力してください。")]
+    [RegularExpression(
+        @"^[a-zA-Z0-9]+$",
+        ErrorMessage =
+            "アカウント名は半角英数字のみで入力してください。")]
+
     public string AccountName { get; set; } = string.Empty;
 
     /// <summary>
