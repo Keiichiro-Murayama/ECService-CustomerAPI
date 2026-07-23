@@ -21,4 +21,11 @@
     <ProjectReference Include="..\..\Apps\ECService_CustomerAPI.Presentation\ECService_CustomerAPI.Presentation.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- 石原:追加 Repositoryテスト用DB設定を出力フォルダへコピー -->
+    <None Update="Repositories/appsettingsTests.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  
 </Project>

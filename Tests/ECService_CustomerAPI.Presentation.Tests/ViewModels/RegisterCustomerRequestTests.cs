@@ -420,6 +420,30 @@ public class RegisterCustomerRequestTests
     }
 
     /// <summary>
+    /// UT-RC-019-2
+    /// </summary>
+    [TestMethod]
+    [DataRow("user_01")]
+    [DataRow("user-name")]
+    [DataRow("アカウント1")]
+    [DataRow("ｕｓｅｒ１２３")]
+    public void Validate_アカウント名に半角英数字以外を含む場合_形式エラーになる(
+        string accountName)
+    {
+        // Arrange
+        var request = CreateValidRequest();
+        request.AccountName = accountName;
+
+        // Act
+        var messages = GetValidationMessages(request);
+
+        // Assert
+        CollectionAssert.Contains(
+            messages,
+            "アカウント名は半角英数字のみで入力してください。");
+    }
+
+    /// <summary>
     /// UT-RC-020
     /// </summary>
     [TestMethod]
