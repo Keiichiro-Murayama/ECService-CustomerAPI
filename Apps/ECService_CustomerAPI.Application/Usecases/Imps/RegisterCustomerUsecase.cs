@@ -60,12 +60,22 @@ public class RegisterCustomerUsecase : IRegisterCustomerUsecase
             await _customerRepository.FindByPhoneNumberAsync(
                 input.PhoneNumber);
 
-        if (customerByMailAddress != null ||
-            customerByUsername != null ||
-            customerByPhoneNumber != null)
+        if (customerByMailAddress != null)
         {
             throw new ConflictException(
-                "このアカウント名、メールアドレス、または電話番号は既に登録されています。");
+                "このメールアドレスは既に登録されています。");
+        }
+
+        if (customerByUsername != null)
+        {
+            throw new ConflictException(
+                "このアカウント名は既に登録されています。");
+        }
+
+        if (customerByPhoneNumber != null)
+        {
+            throw new ConflictException(
+                "この電話番号は既に登録されています。");
         }
 
         var passwordHash =

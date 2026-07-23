@@ -168,11 +168,12 @@ public class RegisterCustomerUsecaseTests
     /// UT-RC-028
     /// </summary>
     [TestMethod]
-    [DataRow("MailAddress")]
-    [DataRow("Username")]
-    [DataRow("PhoneNumber")]
+    [DataRow("MailAddress", "このメールアドレスは既に登録されています。")]
+    [DataRow("Username", "このアカウント名は既に登録されています。")]
+    [DataRow("PhoneNumber", "この電話番号は既に登録されています。")]
     public async Task ExecuteAsync_識別情報が重複する場合_ConflictExceptionを送出して後続処理を行わない(
-        string duplicateTarget)
+    string duplicateTarget,
+    string expectedMessage)
     {
         // Arrange
         var existingCustomer =
@@ -214,8 +215,8 @@ public class RegisterCustomerUsecaseTests
 
         // Assert
         Assert.AreEqual(
-            "このアカウント名、メールアドレス、または電話番号は既に登録されています。",
-            exception.Message);
+          expectedMessage,
+          exception.Message);
 
         _customerRepository.Verify(
             repository =>

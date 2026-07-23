@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ECService_CustomerAPI.Domain.Models;
 using ECService_CustomerAPI.Domain.Exceptions;
 
-namespace ECService_CustomerAPI.Domain.Tests
+namespace ECService_CustomerAPI.Domain.Tests.Models
 {
     [TestClass]
     public class CustomerTests

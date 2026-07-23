@@ -219,7 +219,7 @@ public class RegisterCustomerControllerTests
     {
         // Arrange
         const string expectedMessage =
-            "このアカウント名、メールアドレス、または電話番号は既に登録されています。";
+            "このメールアドレスは既に登録されています。";
 
         _registerCustomerUsecase
             .Setup(usecase => usecase.ExecuteAsync(
