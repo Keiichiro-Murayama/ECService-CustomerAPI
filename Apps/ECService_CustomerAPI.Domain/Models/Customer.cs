@@ -268,7 +268,7 @@ public class Customer
         if (string.IsNullOrWhiteSpace(name))
         {
             throw new DomainException(
-                "顧客名は必須です。",
+                "氏名は必須です。",
                 nameof(name));
         }
 
@@ -276,7 +276,7 @@ public class Customer
             name.Length > NameMaxLength)
         {
             throw new DomainException(
-                $"顧客名は{NameMinLength}〜{NameMaxLength}文字で入力してください。",
+                $"氏名は{NameMinLength}〜{NameMaxLength}文字で入力してください。",
                 nameof(name));
         }
 
@@ -287,7 +287,7 @@ public class Customer
             name.EndsWith("　"))
         {
             throw new DomainException(
-                "顧客名の先頭・末尾に空白は入力できません。",
+                "氏名のスペースは文字と文字の間に1つだけ入力してください。",
                 nameof(name));
         }
 
@@ -295,7 +295,7 @@ public class Customer
         if (Regex.IsMatch(name, @"[ 　]{2,}"))
         {
             throw new DomainException(
-                "顧客名の空白は1文字まで入力できます。",
+                "氏名のスペースは文字と文字の間に1つだけ入力してください。",
                 nameof(name));
         }
     }
@@ -310,7 +310,7 @@ public class Customer
         if (string.IsNullOrWhiteSpace(nameKana))
         {
             throw new DomainException(
-                "顧客名カナは必須です。",
+                "氏名カナは必須です。",
                 nameof(nameKana));
         }
 
@@ -318,7 +318,7 @@ public class Customer
             nameKana.Length > NameKanaMaxLength)
         {
             throw new DomainException(
-                $"顧客名カナは{NameKanaMinLength}〜{NameKanaMaxLength}文字で入力してください。",
+                $"氏名カナは{NameKanaMinLength}〜{NameKanaMaxLength}文字で入力してください。",
                 nameof(nameKana));
         }
 
@@ -329,7 +329,7 @@ public class Customer
             nameKana.EndsWith("　"))
         {
             throw new DomainException(
-                "顧客名カナの先頭・末尾に空白は入力できません。",
+                "氏名カナは全角カナで入力し、スペースは文字と文字の間に1つだけ入力してください。",
                 nameof(nameKana));
         }
 
@@ -337,7 +337,7 @@ public class Customer
         if (Regex.IsMatch(nameKana, @"[ 　]{2,}"))
         {
             throw new DomainException(
-                "顧客名カナの空白は1文字まで入力できます。",
+                "氏名カナは全角カナで入力し、スペースは文字と文字の間に1つだけ入力してください。",
                 nameof(nameKana));
         }
 
@@ -347,7 +347,7 @@ public class Customer
         if (!regex.IsMatch(nameKana))
         {
             throw new DomainException(
-                "顧客名カナは全角カナで入力してください。",
+                "氏名カナは全角カナで入力し、スペースは文字と文字の間に1つだけ入力してください。",
                 nameof(nameKana));
         }
     }
@@ -477,6 +477,16 @@ public class Customer
         {
             throw new DomainException(
                 $"アカウント名は{UsernameMinLength}〜{UsernameMaxLength}文字で入力してください。",
+                nameof(Username));
+        }
+
+                // 半角英数字チェック
+        var regex = new Regex(@"^[a-zA-Z0-9]+$");
+
+        if (!regex.IsMatch(Username))
+        {
+            throw new DomainException(
+                "パスワードは半角英数字のみで入力してください。",
                 nameof(Username));
         }
     }
