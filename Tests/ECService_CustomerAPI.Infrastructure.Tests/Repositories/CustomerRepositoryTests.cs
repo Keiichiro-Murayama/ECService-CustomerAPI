@@ -24,6 +24,7 @@ public class CustomerRepositoryTests
     /// <summary>
     /// テストごとにDB接続とトランザクションを開始する
     /// </summary>
+    [TestInitialize]
     public async Task InitializeAsync()
     {
         var configuration =
