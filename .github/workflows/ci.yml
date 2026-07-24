@@ -71,7 +71,7 @@ jobs:
           --project Apps/ECService_CustomerAPI.Infrastructure/ECService_CustomerAPI.Infrastructure.csproj
           --startup-project Apps/ECService_CustomerAPI.Presentation/ECService_CustomerAPI.Presentation.csproj
           --configuration Release
-          
+          --no-build
 
   
 
