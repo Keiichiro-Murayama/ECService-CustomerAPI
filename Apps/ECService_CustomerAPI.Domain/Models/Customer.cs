@@ -480,7 +480,7 @@ public class Customer
                 nameof(Username));
         }
 
-                // 半角英数字チェック
+        // 半角英数字チェック
         var regex = new Regex(@"^[a-zA-Z0-9]+$");
 
         if (!regex.IsMatch(Username))
