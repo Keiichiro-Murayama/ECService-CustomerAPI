@@ -26,12 +26,14 @@ public class PaymentMethodRepositoryTests
     public async Task InitializeAsync()
     {
         var configuration =
-            new ConfigurationBuilder()
-                .SetBasePath(AppContext.BaseDirectory)
-                .AddJsonFile(
-                    "Repositories/appsettingsTests.json",
-                    optional: false)
-                .Build();
+         new ConfigurationBuilder()
+             .SetBasePath(AppContext.BaseDirectory)
+             .AddJsonFile(
+                 "Repositories/appsettingsTests.json",
+                 optional: false,
+                 reloadOnChange: false)
+             .AddEnvironmentVariables()
+             .Build();
 
         var connectionString =
             configuration.GetConnectionString(
