@@ -178,7 +178,7 @@ public class OrdersEntityAdapterTests
         Assert.AreEqual(entity.OrderStatus.Id, domain.OrderStatusId);
         Assert.AreEqual(entity.PaymentMethodId, domain.PaymentMethodId);
 
-        Assert.AreEqual(1, domain.OrderDetails.Count);
+        Assert.HasCount(1, domain.OrderDetails);
         Assert.AreEqual(productUuid.ToString(), domain.OrderDetails[0].ProductUuid);
         Assert.AreEqual(5, domain.OrderDetails[0].Count);
     }
