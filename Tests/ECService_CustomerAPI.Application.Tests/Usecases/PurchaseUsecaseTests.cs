@@ -532,7 +532,7 @@ public class PurchaseUsecaseTests
             string.Empty,
             "090-1234-5678",
             "test@example.com",
-            "test-user",
+            "testuser",
             "hashed-password");
     }
 }

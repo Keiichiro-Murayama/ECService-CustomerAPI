@@ -7,7 +7,7 @@ using ECService_CustomerAPI.Domain.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace ECService_CustomerAPI.Application.Tests;
+namespace ECService_CustomerAPI.Application.Tests.Usecases;
 
 /// <summary>
 /// 購入履歴取得Usecaseの単体テスト
@@ -18,7 +18,7 @@ public class GetOrderHistoriesUsecaseTests
     /// <summary>
     /// 購入履歴が存在する場合、購入日時の降順で返されること
     /// </summary>
-    [TestMethod(DisplayName = "UT-HIS-001 購入履歴が存在する場合、購入日時の降順で返す")]
+    [TestMethod(DisplayName ="UT-HIS-001 購入履歴が存在する場合、購入日時の降順で返す")]
     public async Task ExecuteAsync_購入履歴が存在する場合_購入日時の降順で返す()
     {
         // Arrange
@@ -126,7 +126,7 @@ public class GetOrderHistoriesUsecaseTests
     /// <summary>
     /// 購入履歴が存在しない場合、空の一覧が返されること
     /// </summary>
-    [TestMethod(DisplayName = "UT-HIS-002 購入履歴が存在しない場合、空の一覧を返す")]
+    [TestMethod(DisplayName ="UT-HIS-002 購入履歴が存在しない場合、空の一覧を返す")]
     public async Task ExecuteAsync_購入履歴が存在しない場合_空の一覧を返す()
     {
         // Arrange
@@ -167,7 +167,7 @@ public class GetOrderHistoriesUsecaseTests
     /// Repositoryで例外が発生した場合、
     /// 例外が呼び出し元へ通知されること
     /// </summary>
-    [TestMethod(DisplayName = "UT-HIS-003 Repositoryで例外が発生した場合、例外を通知する")]
+    [TestMethod(DisplayName ="UT-HIS-003 Repositoryで例外が発生した場合、例外を通知する")]
     public async Task ExecuteAsync_Repositoryで例外が発生した場合_例外を通知する()
     {
         // Arrange

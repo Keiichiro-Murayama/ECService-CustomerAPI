@@ -31,6 +31,7 @@ public class Customer
     public string PasswordHash { get; private set; } = string.Empty;
 
     ///バリデーション条件
+    private const int NameMinLength = 2;
     private const int NameMaxLength = 20;
 
     //石原:追加 氏名カナの最小文字数
@@ -41,11 +42,13 @@ public class Customer
 
     private const int AddressMaxLength = 100;
 
-    private const int PhoneNumberMaxLength = 20;
+    private const int PhoneNumberMaxLength = 14;
 
-    private const int MailAddressMaxLength = 200;
+    private const int MailAddressMinLength = 4;
+    private const int MailAddressMaxLength = 100;
 
-    private const int UsernameMaxLength = 30;
+    private const int UsernameMinLength = 5;
+    private const int UsernameMaxLength = 20;
 
     private const int PasswordMinLength = 5;
 
@@ -265,19 +268,38 @@ public class Customer
         if (string.IsNullOrWhiteSpace(name))
         {
             throw new DomainException(
-                "顧客名は必須です。",
+                "氏名は必須です。",
                 nameof(name));
         }
 
-        if (name.Length > NameMaxLength)
+        if (name.Length < NameMinLength ||
+            name.Length > NameMaxLength)
         {
             throw new DomainException(
-                $"顧客名は{NameMaxLength}文字以内で入力してください。",
+                $"氏名は{NameMinLength}〜{NameMaxLength}文字で入力してください。",
+                nameof(name));
+        }
+
+        // 先頭・末尾の空白は禁止
+        if (name.StartsWith(" ") ||
+            name.StartsWith("　") ||
+            name.EndsWith(" ") ||
+            name.EndsWith("　"))
+        {
+            throw new DomainException(
+                "氏名のスペースは文字と文字の間に1つだけ入力してください。",
+                nameof(name));
+        }
+
+        // 空白は1文字のみ許可
+        if (Regex.IsMatch(name, @"[ 　]{2,}"))
+        {
+            throw new DomainException(
+                "氏名のスペースは文字と文字の間に1つだけ入力してください。",
                 nameof(name));
         }
     }
 
-    //石原:追加 氏名カナの必須・文字数・全角カナ形式を検証する処理
     /// <summary>
     /// 顧客名カナを検証する
     /// </summary>
@@ -288,7 +310,7 @@ public class Customer
         if (string.IsNullOrWhiteSpace(nameKana))
         {
             throw new DomainException(
-                "顧客名カナは必須です。",
+                "氏名カナは必須です。",
                 nameof(nameKana));
         }
 
@@ -296,18 +318,36 @@ public class Customer
             nameKana.Length > NameKanaMaxLength)
         {
             throw new DomainException(
-                $"顧客名カナは{NameKanaMinLength}〜{NameKanaMaxLength}文字で入力してください。",
+                $"氏名カナは{NameKanaMinLength}〜{NameKanaMaxLength}文字で入力してください。",
                 nameof(nameKana));
         }
 
-        //全角カナ、長音、半角・全角スペースを許可
-        //石原:変更 氏名カナを全角カタカナのみ許可する
-        var regex = new Regex(@"^[ァ-ヶー]+$");
+        // 先頭・末尾スペース禁止
+        if (nameKana.StartsWith(" ") ||
+            nameKana.StartsWith("　") ||
+            nameKana.EndsWith(" ") ||
+            nameKana.EndsWith("　"))
+        {
+            throw new DomainException(
+                "氏名カナは全角カナで入力し、スペースは文字と文字の間に1つだけ入力してください。",
+                nameof(nameKana));
+        }
+
+        // スペースは1文字のみ許可
+        if (Regex.IsMatch(nameKana, @"[ 　]{2,}"))
+        {
+            throw new DomainException(
+                "氏名カナは全角カナで入力し、スペースは文字と文字の間に1つだけ入力してください。",
+                nameof(nameKana));
+        }
+
+        // 全角カタカナ + 長音 + スペース許可
+        var regex = new Regex(@"^[ァ-ヶー 　]+$");
 
         if (!regex.IsMatch(nameKana))
         {
             throw new DomainException(
-                "顧客名カナは全角カナで入力してください。",
+                "氏名カナは全角カナで入力し、スペースは文字と文字の間に1つだけ入力してください。",
                 nameof(nameKana));
         }
     }
@@ -409,10 +449,11 @@ public class Customer
                 nameof(mailAddress));
         }
 
-        if (mailAddress.Length > MailAddressMaxLength)
+        if (mailAddress.Length < MailAddressMinLength ||
+            mailAddress.Length > MailAddressMaxLength)
         {
             throw new DomainException(
-                $"メールアドレスは{MailAddressMaxLength}文字以内で入力してください。",
+                $"メールアドレスは{MailAddressMinLength}〜{MailAddressMaxLength}文字で入力してください。",
                 nameof(mailAddress));
         }
     }
@@ -431,10 +472,21 @@ public class Customer
                 nameof(Username));
         }
 
-        if (Username.Length > UsernameMaxLength)
+        if (Username.Length < UsernameMinLength ||
+            Username.Length > UsernameMaxLength)
         {
             throw new DomainException(
-                $"アカウント名は{UsernameMaxLength}文字以内で入力してください。",
+                $"アカウント名は{UsernameMinLength}〜{UsernameMaxLength}文字で入力してください。",
+                nameof(Username));
+        }
+
+                // 半角英数字チェック
+        var regex = new Regex(@"^[a-zA-Z0-9]+$");
+
+        if (!regex.IsMatch(Username))
+        {
+            throw new DomainException(
+                "パスワードは半角英数字のみで入力してください。",
                 nameof(Username));
         }
     }
@@ -458,6 +510,17 @@ public class Customer
         {
             throw new DomainException(
                 $"パスワードは{PasswordMinLength}〜{PasswordMaxLength}文字で入力してください。",
+                nameof(password));
+        }
+
+
+        // 半角英数字チェック
+        var regex = new Regex(@"^[a-zA-Z0-9]+$");
+
+        if (!regex.IsMatch(password))
+        {
+            throw new DomainException(
+                "パスワードは半角英数字のみで入力してください。",
                 nameof(password));
         }
     }

@@ -88,7 +88,7 @@ public class AuthControllerTests
         var badRequest = result.Result as BadRequestObjectResult;
         Assert.IsNotNull(badRequest);
         Assert.AreEqual(StatusCodes.Status400BadRequest, badRequest.StatusCode);
-        Assert.AreEqual("メールアドレスを正しく入力してください。", ExtractPropertyValue(badRequest.Value, "message"));
+        Assert.AreEqual("メールアドレスは必須項目です", ExtractPropertyValue(badRequest.Value, "message"));
 
         _loginUsecaseMock.VerifyNoOtherCalls();
     }
@@ -111,7 +111,7 @@ public class AuthControllerTests
         var badRequest = result.Result as BadRequestObjectResult;
         Assert.IsNotNull(badRequest);
         Assert.AreEqual(StatusCodes.Status400BadRequest, badRequest.StatusCode);
-        Assert.AreEqual("パスワードを正しく入力してください。", ExtractPropertyValue(badRequest.Value, "message"));
+        Assert.AreEqual("パスワードは必須項目です", ExtractPropertyValue(badRequest.Value, "message"));
 
         _loginUsecaseMock.VerifyNoOtherCalls();
     }
@@ -164,7 +164,7 @@ public class AuthControllerTests
         var badRequest = result.Result as BadRequestObjectResult;
         Assert.IsNotNull(badRequest);
         Assert.AreEqual(StatusCodes.Status400BadRequest, badRequest.StatusCode);
-        Assert.AreEqual("メールアドレスを正しく入力してください。", ExtractPropertyValue(badRequest.Value, "message"));
+        Assert.AreEqual("有効なメールアドレスを入力してください", ExtractPropertyValue(badRequest.Value, "message"));
 
         _loginUsecaseMock.VerifyNoOtherCalls();
     }
@@ -187,7 +187,7 @@ public class AuthControllerTests
         var badRequest = result.Result as BadRequestObjectResult;
         Assert.IsNotNull(badRequest);
         Assert.AreEqual(StatusCodes.Status400BadRequest, badRequest.StatusCode);
-        Assert.AreEqual("メールアドレスを正しく入力してください。", ExtractPropertyValue(badRequest.Value, "message"));
+        Assert.AreEqual("メールアドレスは4文字以上100文字以内で入力してください", ExtractPropertyValue(badRequest.Value, "message"));
 
         _loginUsecaseMock.VerifyNoOtherCalls();
     }
@@ -210,7 +210,7 @@ public class AuthControllerTests
         var badRequest = result.Result as BadRequestObjectResult;
         Assert.IsNotNull(badRequest);
         Assert.AreEqual(StatusCodes.Status400BadRequest, badRequest.StatusCode);
-        Assert.AreEqual("メールアドレスを正しく入力してください。", ExtractPropertyValue(badRequest.Value, "message"));
+        Assert.AreEqual("メールアドレスは4文字以上100文字以内で入力してください", ExtractPropertyValue(badRequest.Value, "message"));
 
         _loginUsecaseMock.VerifyNoOtherCalls();
     }
@@ -263,7 +263,7 @@ public class AuthControllerTests
         var badRequest = result.Result as BadRequestObjectResult;
         Assert.IsNotNull(badRequest);
         Assert.AreEqual(StatusCodes.Status400BadRequest, badRequest.StatusCode);
-        Assert.AreEqual("パスワードを正しく入力してください。", ExtractPropertyValue(badRequest.Value, "message"));
+        Assert.AreEqual("パスワードは5文字以上20文字以内で入力してください", ExtractPropertyValue(badRequest.Value, "message"));
 
         _loginUsecaseMock.VerifyNoOtherCalls();
     }
@@ -286,7 +286,7 @@ public class AuthControllerTests
         var badRequest = result.Result as BadRequestObjectResult;
         Assert.IsNotNull(badRequest);
         Assert.AreEqual(StatusCodes.Status400BadRequest, badRequest.StatusCode);
-        Assert.AreEqual("パスワードを正しく入力してください。", ExtractPropertyValue(badRequest.Value, "message"));
+        Assert.AreEqual("パスワードは5文字以上20文字以内で入力してください", ExtractPropertyValue(badRequest.Value, "message"));
 
         _loginUsecaseMock.VerifyNoOtherCalls();
     }
