@@ -1,0 +1,109 @@
+name: ECService Backend CI
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+  pull_request:
+    branches:
+      - dev
+      - main
+
+jobs:
+  build-and-test:
+    name: ビルドとテスト
+    runs-on: ubuntu-latest
+
+    # CI実行中だけ使用する、使い捨てのPostgreSQL
+    services:
+      postgres:
+        image: postgres:17
+
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ecservice_test
+
+        ports:
+          - 5432:5432
+
+        options: >-
+          --health-cmd "pg_isready -U postgres -d ecservice_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    # appsettings.jsonの接続文字列をCI用の値で上書きする
+    env:
+      ConnectionStrings__ECServiceDB: "Host=localhost;Port=5432;Database=ecservice_test;Username=postgres;Password=postgres"
+
+    steps:
+      # リポジトリのコードを取得
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      # .NET 10 SDKを準備
+      - name: .NET SDKをセットアップ
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      # NuGetパッケージを復元
+      - name: 依存パッケージを復元
+        run: dotnet restore ECService_CustomerAPI.slnx
+
+
+      - name: .NETツールを復元
+        run: dotnet tool restore
+
+      # Release構成でビルド
+      - name: ビルド
+        run: >
+          dotnet build ECService_CustomerAPI.slnx
+          --configuration Release
+          --no-restore
+
+      # Migrationを使って、使い捨てDBにテーブルを作成
+      - name: MigrationをテストDBに適用
+        run: >
+          dotnet ef database update
+          --project Apps/ECService_CustomerAPI.Infrastructure/ECService_CustomerAPI.Infrastructure.csproj
+          --startup-project Apps/ECService_CustomerAPI.Presentation/ECService_CustomerAPI.Presentation.csproj
+          --configuration Release
+          --no-build
+
+  
+
+      # コードの書式を確認
+      - name: 書式チェック
+        run: >
+          dotnet format ECService_CustomerAPI.slnx
+          --verify-no-changes
+          --severity warn
+          --exclude-diagnostics MSTEST0032
+          --no-restore
+
+      # ドメイン層のテスト
+      - name: テスト（ドメイン層）
+        run: >
+          dotnet test
+          Tests/ECService_CustomerAPI.Domain.Tests/ECService_CustomerAPI.Domain.Tests.csproj
+          --configuration Release
+          --no-build
+
+      # アプリケーション層のテスト
+      - name: テスト（アプリケーション層）
+        run: >
+          dotnet test
+          Tests/ECService_CustomerAPI.Application.Tests/ECService_CustomerAPI.Application.Tests.csproj
+          --configuration Release
+          --no-build
+
+      # インフラストラクチャ層のテスト
+      - name: テスト（インフラストラクチャ層）
+        run: >
+          dotnet test
+          Tests/ECService_CustomerAPI.Infrastructure.Tests/ECService_CustomerAPI.Infrastructure.Tests.csproj
+          --configuration Release
+          --no-build

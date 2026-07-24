@@ -54,7 +54,7 @@ namespace ECService_CustomerAPI.Infrastructure.Entities
         /// <summary>
         /// 住所2
         /// </summary>
-        [Required]
+        
         [Column("address2")]
         [MaxLength(100)]
         public string Address2 { get; set; } = string.Empty;

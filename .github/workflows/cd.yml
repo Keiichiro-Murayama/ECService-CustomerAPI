@@ -1,0 +1,187 @@
+name: .NET ECService CD
+
+on:
+  workflow_run:
+      #ここはCIファイル内の「name:」と完全一致させる
+   workflows:
+      - "ECService Backend CI"
+   types:
+   - completed
+   branches:
+     - main
+
+
+jobs:
+  deploy:
+    name: Azure VMへデプロイ
+
+    # CIが成功した場合だけデプロイする
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # CIで検証されたコミットを取得
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      # .NET 10 SDKを準備
+      - name: .NET SDKをセットアップ
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      # Linux向けにアプリを発行
+      - name: アプリケーションを発行
+        run: |
+          dotnet publish Apps/ECService_CustomerAPI.Presentation/ECService_CustomerAPI.Presentation.csproj \
+            --configuration Release \
+            --runtime linux-x64 \
+            --self-contained false \
+            --output ./publish
+
+      # VM側のデプロイ先を準備
+      - name: VMのデプロイ先を準備
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.ECSERVICE_AZURE_HOST }}
+          username: ${{ secrets.ECSERVICE_AZURE_USER }}
+          key: ${{ secrets.ECSERVICE_AZURE_SECRET }}
+          script: |
+            set -e
+
+            echo "=== VM preparation ==="
+
+            sudo apt-get update
+            sudo apt-get install -y nginx aspnetcore-runtime-10.0
+
+            echo "=== Installed runtimes ==="
+            dotnet --list-runtimes
+
+            echo "=== Preparing directory ==="
+            sudo mkdir -p /var/www/ecservice-customerapi
+            sudo chown -R "$(whoami)":"$(whoami)" /var/www/ecservice-customerapi
+            echo "=== Removing old files ==="
+            rm -rf /var/www/ecservice-customerapi/*
+
+      # publishフォルダの中身をVMへ転送
+      - name: 発行ファイルをVMへ転送
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.ECSERVICE_AZURE_HOST }}
+          username: ${{ secrets.ECSERVICE_AZURE_USER }}
+          key: ${{ secrets.ECSERVICE_AZURE_SECRET }}
+          source: "./publish/*"
+          target: "/var/www/ecservice-customerapi"
+          strip_components: 1
+          overwrite: true
+
+      # systemdとNginxを設定してアプリを起動
+      - name: APIサービスを起動
+        uses: appleboy/ssh-action@v1
+        env:
+          AZURE_DB_HOST: ${{ secrets.AZURE_DB_HOST }}
+          AZURE_DB_NAME: ${{ secrets.AZURE_DB_NAME }}
+          AZURE_DB_USER: ${{ secrets.AZURE_DB_USER }}
+          AZURE_DB_PASSWORD: ${{ secrets.AZURE_DB_PASSWORD }}
+          SERVICE_USER: ${{ secrets.ECSERVICE_AZURE_USER }}
+        with:
+          host: ${{ secrets.ECSERVICE_AZURE_HOST }}
+          username: ${{ secrets.ECSERVICE_AZURE_USER }}
+          key: ${{ secrets.ECSERVICE_AZURE_SECRET }}
+          envs: AZURE_DB_HOST,AZURE_DB_NAME,AZURE_DB_USER,AZURE_DB_PASSWORD,SERVICE_USER
+          script: |
+            set -e
+
+            echo "=== Creating environment file ==="
+
+            sudo install -m 600 /dev/null /etc/ecservice-customerapi.env
+
+            sudo env \
+              AZURE_DB_HOST="$AZURE_DB_HOST" \
+              AZURE_DB_NAME="$AZURE_DB_NAME" \
+              AZURE_DB_USER="$AZURE_DB_USER" \
+              AZURE_DB_PASSWORD="$AZURE_DB_PASSWORD" \
+              bash -c 'printf "%s\n" \
+             "ConnectionStrings__ECServiceDB=Host=${AZURE_DB_HOST};Port=5432;Database=${AZURE_DB_NAME};Username=${AZURE_DB_USER};Password=${AZURE_DB_PASSWORD};SSL Mode=Require;Trust Server Certificate=true" \
+              > /etc/ecservice-customerapi.env'
+            echo "=== Configuring systemd ==="
+
+            sudo tee /etc/systemd/system/ecservice-customerapi.service > /dev/null <<EOF
+            [Unit]
+            Description=ECService_CustomerAPI ASP.NET Core API
+            After=network.target
+
+            [Service]
+            WorkingDirectory=/var/www/ecservice-customerapi
+            ExecStart=/usr/bin/dotnet /var/www/ecservice-customerapi/ECService_CustomerAPI.Presentation.dll
+            Restart=always
+            RestartSec=10
+            KillSignal=SIGINT
+            SyslogIdentifier=ecservice-customerapi
+            User=${SERVICE_USER}
+
+            Environment=ASPNETCORE_ENVIRONMENT=Production
+            Environment=ASPNETCORE_URLS=http://127.0.0.1:5001
+            EnvironmentFile=/etc/ecservice-customerapi.env
+
+            [Install]
+            WantedBy=multi-user.target
+            EOF
+
+            echo "=== Configuring Nginx ==="
+
+            sudo tee /etc/nginx/sites-available/ecservice-customerapi > /dev/null <<'EOF'
+            server {
+                listen 8080;
+                listen [::]:8080;
+
+                server_name _;
+
+                location / {
+                    proxy_pass http://127.0.0.1:5001;
+                    proxy_http_version 1.1;
+
+                    proxy_set_header Host $host;
+                    proxy_set_header X-Real-IP $remote_addr;
+                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    proxy_set_header X-Forwarded-Proto $scheme;
+
+                    proxy_set_header Upgrade $http_upgrade;
+                    proxy_set_header Connection keep-alive;
+                    proxy_cache_bypass $http_upgrade;
+                }
+            }
+            EOF
+
+            sudo ln -sfn \
+              /etc/nginx/sites-available/ecservice-customerapi \
+              /etc/nginx/sites-enabled/ecservice-customerapi
+
+            sudo rm -f /etc/nginx/sites-enabled/default
+
+            echo "=== Validating Nginx ==="
+            sudo nginx -t
+
+            echo "=== Restarting services ==="
+
+            sudo systemctl daemon-reload
+            sudo systemctl enable ecservice-customerapi.service
+            sudo systemctl restart ecservice-customerapi.service
+
+            sudo systemctl enable nginx
+            sudo systemctl restart nginx
+
+            echo "=== Service status ==="
+            sudo systemctl --no-pager --full status ecservice-customerapi.service
+
+            echo "=== Local API check ==="
+            sleep 5
+            test -f /var/www/ecservice-customerapi/ECService_CustomerAPI.Presentation.dll
+            curl --fail --show-error \
+            http://127.0.0.1:5001/
+
+            echo "=== Deployment completed ==="
+     

@@ -39,10 +39,10 @@ public class GetPaymentMethodsUsecaseTests
         var result = await _usecase.ExecuteAsync();
 
         // Assert
-        Assert.HasCount(2,result);
+        Assert.HasCount(2, result);
         CollectionAssert.AreEqual(paymentMethods, result);
 
-     _repositoryMock.Verify(x => x.SelectAllAsync(), Times.Once);
+        _repositoryMock.Verify(x => x.SelectAllAsync(), Times.Once);
     }
 
     /// <summary>
