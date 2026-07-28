@@ -24,7 +24,7 @@ public static class PresentationServiceCollectionExtensions
         services.AddScoped<GetCustomerInfoViewModelAdapter>();
         services.AddScoped<GetCategoriesViewModelAdapter>();
         services.AddScoped<SearchProductsViewModelAdapter>();
-
+        services.AddScoped<GetProductDetailViewModelAdapter>();
         return services;
     }
 }

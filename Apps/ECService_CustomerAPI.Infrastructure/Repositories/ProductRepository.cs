@@ -202,4 +202,88 @@ public class ProductRepository : IProductRepository
                 product.ImageUrl ?? string.Empty))
             .ToList();
     }
+
+
+    /// <summary>
+    /// 指定された商品UUIDの商品詳細を取得する
+    /// </summary>
+    /// <param name="productUuid">商品UUID</param>
+    /// <returns>
+    /// 商品詳細。商品が存在しない場合はnull
+    /// </returns>
+    public async Task<ProductDetail?> SelectByUuidAsync(
+        string productUuid)
+    {
+        try
+        {
+            /*
+             * 商品UUIDをGuidへ変換する
+             */
+            if (!Guid.TryParse(
+                productUuid,
+                out var parsedProductUuid))
+            {
+                throw new InternalException(
+                    "商品UUIDの形式が不正です。");
+            }
+
+            /*
+             * 商品、カテゴリ、在庫を取得する
+             */
+            var productEntity = await _context.Products
+                .AsNoTracking()
+                .Include(product =>
+                    product.ProductCategory)
+                .Include(product =>
+                    product.ProductStock)
+                .SingleOrDefaultAsync(product =>
+                    product.ProductUuid ==
+                        parsedProductUuid &&
+                    product.DeleteFlag == 0);
+
+            /*
+             * 商品が存在しない場合
+             */
+            if (productEntity == null)
+            {
+                return null;
+            }
+
+            /*
+             * 関連するカテゴリまたは在庫が
+             * 存在しない場合
+             */
+            if (productEntity.ProductCategory == null ||
+                productEntity.ProductStock == null)
+            {
+                return null;
+            }
+
+            /*
+             * DBエンティティから
+             * 商品詳細ドメインへ変換する
+             */
+            return ProductDetail.Restore(
+                productEntity.ProductUuid.ToString(),
+                productEntity.Name,
+                productEntity.Price,
+                productEntity.ImageUrl ??
+                    string.Empty,
+                productEntity.ProductStock.Quantity,
+                productEntity.ProductCategory
+                    .CategoryUuid.ToString());
+        }
+        catch (InternalException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new InternalException(
+                $"商品UUID:{productUuid}の" +
+                "商品詳細取得中に予期しない" +
+                "エラーが発生しました。",
+                ex);
+        }
+    }
 }

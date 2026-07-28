@@ -49,6 +49,15 @@ public interface IProductRepository
     /// </summary>
     /// <param name="categoryUuid">カテゴリUUID</param>
     /// <returns>指定カテゴリの商品一覧</returns>
-    Task<List<Product>> SelectByCategoryAsync(
-        string categoryUuid);
+    Task<List<Product>> SelectByCategoryAsync(string categoryUuid);
+
+
+    /// <summary>
+    /// 指定された商品UUIDの商品詳細を取得する
+    /// </summary>
+    /// <param name="productUuid">商品UUID</param>
+    /// <returns>
+    /// 商品詳細。商品が存在しない場合はnull
+    /// </returns>
+    Task<ProductDetail?> SelectByUuidAsync(string productUuid);
 }
