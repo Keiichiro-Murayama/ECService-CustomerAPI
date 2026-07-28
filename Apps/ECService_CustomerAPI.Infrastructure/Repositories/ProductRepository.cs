@@ -5,6 +5,7 @@ using ECService_CustomerAPI.Domain.Exceptions;
 using ECService_CustomerAPI.Domain.Repositories;
 using ECService_CustomerAPI.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
+using ECService_CustomerAPI.Domain.Models;
 
 namespace ECService_CustomerAPI.Infrastructure.Repositories;
 
@@ -146,5 +147,59 @@ public class ProductRepository : IProductRepository
         }
 
         return productName;
+    }
+
+
+    /// <summary>
+    /// 削除されていない商品を全件取得する
+    /// </summary>
+    /// <returns>商品一覧</returns>
+    public async Task<List<Product>> SelectAllAsync()
+    {
+        var productEntities = await _context.Products
+            .AsNoTracking()
+            .Where(product => product.DeleteFlag == 0)
+            .OrderBy(product => product.Id)
+            .ToListAsync();
+
+        return productEntities
+            .Select(product => Product.Restore(
+                product.ProductUuid.ToString(),
+                product.Name,
+                product.Price,
+                product.ImageUrl ?? string.Empty))
+            .ToList();
+    }
+
+    /// <summary>
+    /// 指定したカテゴリに属する商品を取得する
+    /// </summary>
+    /// <param name="categoryUuid">カテゴリUUID</param>
+    /// <returns>指定カテゴリの商品一覧</returns>
+    public async Task<List<Product>> SelectByCategoryAsync(
+        string categoryUuid)
+    {
+        if (!Guid.TryParse(categoryUuid, out var parsedCategoryUuid))
+        {
+            throw new InternalException(
+                "カテゴリUUIDの形式が不正です。");
+        }
+
+        var productEntities = await _context.Products
+            .AsNoTracking()
+            .Where(product =>
+                product.DeleteFlag == 0 &&
+                product.ProductCategory.CategoryUuid ==
+                    parsedCategoryUuid)
+            .OrderBy(product => product.Id)
+            .ToListAsync();
+
+        return productEntities
+            .Select(product => Product.Restore(
+                product.ProductUuid.ToString(),
+                product.Name,
+                product.Price,
+                product.ImageUrl ?? string.Empty))
+            .ToList();
     }
 }
