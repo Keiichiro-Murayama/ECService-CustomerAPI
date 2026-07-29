@@ -72,7 +72,7 @@ public static class InfrastructureServiceCollectionExtensions
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IOrdersRepository, OrdersRepository>();
         services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
-        services.AddScoped<IProductCategoryRepository,ProductCategoryRepository>();
+        services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 
         return services;
     }
