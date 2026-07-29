@@ -29,13 +29,14 @@ public class OrdersRepositoryTests
     public async Task InitializeAsync()
     {
         var configuration =
-            new ConfigurationBuilder()
-                .SetBasePath(AppContext.BaseDirectory)
-                .AddJsonFile(
-                    "Repositories/appsettingsTests.json",
-                    optional: false)
-                .AddEnvironmentVariables()
-                .Build();
+        new ConfigurationBuilder()
+            .SetBasePath(AppContext.BaseDirectory)
+            .AddJsonFile(
+                "Repositories/appsettingsTests.json",
+                optional: false,
+                reloadOnChange: false)
+            .AddEnvironmentVariables()
+            .Build();
 
         var connectionString =
             configuration.GetConnectionString(

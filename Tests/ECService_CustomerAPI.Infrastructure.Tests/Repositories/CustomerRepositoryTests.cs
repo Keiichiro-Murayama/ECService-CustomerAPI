@@ -32,13 +32,13 @@ public class CustomerRepositoryTests
                 .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile(
                     "Repositories/appsettingsTests.json",
-                    optional: false)
+                    optional: false,
+                    reloadOnChange: false)
                 .AddEnvironmentVariables()
                 .Build();
 
         var connectionString =
-            configuration.GetConnectionString(
-                "ECServiceDB")
+            configuration.GetConnectionString("ECServiceDB")
             ?? throw new InvalidOperationException(
                 "テストDBの接続文字列を取得できませんでした。");
 
@@ -47,12 +47,16 @@ public class CustomerRepositoryTests
                 .UseNpgsql(connectionString)
                 .Options;
 
-        _context =
-            new AppDbContext(options);
+        _context = new AppDbContext(options);
+
+        if (!await _context.Database.CanConnectAsync())
+        {
+            throw new InvalidOperationException(
+                "テスト用PostgreSQLへ接続できません。");
+        }
 
         _transaction =
-            await _context.Database
-                .BeginTransactionAsync();
+            await _context.Database.BeginTransactionAsync();
 
         _repository =
             new CustomerRepository(
