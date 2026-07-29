@@ -9,6 +9,11 @@ namespace ECService_CustomerAPI.Presentation.Adapters;
 public class GetOrderHistoriesViewModelAdapter
 {
     /// <summary>
+    /// 日本時間のUTCオフセット
+    /// </summary>
+    private static readonly TimeSpan JapanOffset = TimeSpan.FromHours(9);
+
+    /// <summary>
     /// 注文一覧を購入履歴レスポンス一覧へ変換する
     /// </summary>
     /// <param name="orders">注文一覧</param>
@@ -19,7 +24,12 @@ public class GetOrderHistoriesViewModelAdapter
         {
             OrderId = order.Id.GetValueOrDefault(),
             OrderUuid = order.OrderUuid,
-            OrderDate = order.OrderDate.GetValueOrDefault(),
+
+            // DBから取得したUTC日時を日本時間へ変換する
+            OrderDate = order.OrderDate
+                .GetValueOrDefault()
+                .ToOffset(JapanOffset),
+
             AmountTotal = order.AmountTotal
         }).ToList();
     }
