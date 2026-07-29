@@ -33,6 +33,7 @@ public class ProductRepositoryTests
                 .AddJsonFile(
                     "Repositories/appsettingsTests.json",
                     optional: false)
+                .AddEnvironmentVariables()
                 .Build();
 
         var connectionString =

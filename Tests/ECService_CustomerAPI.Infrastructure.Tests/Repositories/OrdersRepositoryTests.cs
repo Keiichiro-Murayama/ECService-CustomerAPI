@@ -34,6 +34,7 @@ public class OrdersRepositoryTests
                 .AddJsonFile(
                     "Repositories/appsettingsTests.json",
                     optional: false)
+                .AddEnvironmentVariables()
                 .Build();
 
         var connectionString =
